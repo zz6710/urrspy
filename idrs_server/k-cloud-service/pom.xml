@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>pms_server</groupId>
+		<artifactId>pms_server</artifactId>
+		<version>1.0.0</version>
+	</parent>
+	<artifactId>k-cloud-service</artifactId>
+	<version>1.0.0</version>
+	<packaging>pom</packaging>
+	<distributionManagement>
+		<site>
+			<id>website</id>
+			<url>scp://webhost.company.com/www/website</url>
+		</site>
+	</distributionManagement>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-bootstrap</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>pms_server</groupId>
+			<artifactId>k-cloud-dao</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>pms_server</groupId>
+			<artifactId>k-cloud-xsql</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>8.0.17</version>
+		</dependency>
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>easyexcel</artifactId>
+			<version>2.0.5</version>
+		</dependency>
+		<dependency>
+			<groupId>com.github.albfernandez</groupId>
+			<artifactId>javadbf</artifactId>
+			<version>1.13.2</version>
+		</dependency>
+	</dependencies>
+	<modules>
+		<module>k-cloud-service-base</module>
+		<module>k-cloud-service-gateway</module>
+    	<module>k-cloud-DataProcessApp</module>
+		<module>k-cloud-ReportApp</module>
+		<module>k-cloud-service-flowable</module>
+		<module>k-cloud-service-api</module>
+  </modules>
+
+</project>

@@ -1,0 +1,778 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqlinfos>
+    <!--查询任务子步骤信息-->
+    <sqlinfo sqlid="C018Q03">
+        <sql dbtype="all"><![CDATA[
+            SELECT task_id, step_no, step_name, can_replay, can_skip
+              FROM ta_clear_task_step
+             WHERE task_id = :task_id
+        ]]></sql>
+    </sqlinfo>
+
+    <!--插入主任务执行信息-->
+    <sqlinfo sqlid="C018U01">
+        <sql dbtype="all"><![CDATA[
+            INSERT INTO  kbatch_task_exec (
+                task_execid,        moduleid,               task_id,           should_exec_date,
+                should_exec_time,   alarm_time,             target_code,       prod_code,
+                exec_status,        task_date,              task_group,        pre_task_id,
+                task_params,        crt_time,               upd_time,          simple_flow,
+                auto_exec,          exec_order,             distributor_batch
+            ) VALUES (
+                :task_execid,       :moduleid,              :task_id,          :should_exec_date,
+                :should_exec_time,  :alarm_time,            :target_code,      :prod_code,
+                :exec_status,       :task_date,             :task_group,       :pre_task_id,
+                :task_params,       current_timestamp,	    current_timestamp, :simple_flow,
+                :auto_exec,         :exec_order,            :distributor_batch
+            )
+        ]]></sql>
+        <sql dbtype="db2"><![CDATA[
+            INSERT INTO  kbatch_task_exec (
+                task_execid,        moduleid,               task_id,           should_exec_date,
+                should_exec_time,   alarm_time,             target_code,       prod_code,
+                exec_status,        task_date,              task_group,        pre_task_id,
+                task_params,        crt_time,               upd_time,          simple_flow,
+                auto_exec,          exec_order,             distributor_batch
+            ) VALUES (
+                :task_execid,       :moduleid,              :task_id,          :should_exec_date,
+                :should_exec_time,  :alarm_time,            :target_code,      :prod_code,
+                :exec_status,       :task_date,             :task_group,       :pre_task_id,
+                :task_params,       current timestamp,	    current timestamp, :simple_flow,
+                :auto_exec,         :exec_order,            :distributor_batch
+            )
+        ]]></sql>
+    </sqlinfo>
+
+
+    <!--插入步骤任务执行信息-->
+    <sqlinfo sqlid="C018U02">
+        <sql dbtype="all"><![CDATA[
+            INSERT INTO KBATCH_TASK_STEP_EXEC (
+               task_execid,      moduleid,    task_id,   step_no,
+               should_exec_date, target_code, prod_code, exec_status,
+               is_neglect,       is_skip,     is_replay, is_stop,
+               is_slice,task_date,task_group,distributor_batch,crt_time,upd_time
+            )
+            VALUES(
+                :task_execid,       :moduleid,    :task_id,   :step_no,
+                :should_exec_date, :target_code, :prod_code, :exec_status,
+                :is_neglect,        :is_skip,     :is_replay, :is_stop,
+                :is_slice,:task_date,:task_group,:distributor_batch,current_timestamp,
+                current_timestamp
+            )
+        ]]></sql>
+        <sql dbtype="db2"><![CDATA[
+            INSERT INTO KBATCH_TASK_STEP_EXEC (
+               task_execid,      moduleid,    task_id,   step_no,
+               should_exec_date, target_code, prod_code, exec_status,
+               is_neglect,       is_skip,     is_replay, is_stop,
+               is_slice,task_date,task_group,distributor_batch,crt_time,upd_time
+            )
+            VALUES(
+                :task_execid,       :moduleid,    :task_id,   :step_no,
+                :should_exec_date, :target_code, :prod_code, :exec_status,
+                :is_neglect,        :is_skip,     :is_replay, :is_stop,
+                :is_slice,:task_date,:task_group,:distributor_batch,(current timestamp),
+                (current timestamp)
+            )
+        ]]></sql>
+    </sqlinfo>
+
+    <sqlinfo sqlid="C018Q13">
+        <sql dbtype="all"><![CDATA[
+            SELECT t.distributor_code,
+                   f.task_group,
+                   g.running_type,
+                   g.should_exec_time,
+                   g.alarm_time,
+                   i.task_id,
+                   i.task_name,
+                   i.moduleid,
+                   i.task_type,
+                   i.can_again,
+                   s.pre_task_id,
+                   s.exec_order,
+                   s.task_params,
+                   s.simple_flow,
+                   i.service_class,
+                   i.req_class,
+                   i.in_class,
+                   s.distributor_batch
+              FROM ta_clear_group_member f
+         LEFT JOIN kbatch_group_info g
+                ON g.task_group = f.task_group
+         LEFT JOIN ta_distributor_info t
+                ON f.group_member = t.distributor_code
+         LEFT JOIN kbatch_task_set s
+                ON f.task_group = s.task_group
+         LEFT JOIN kbatch_task_info i
+                ON s.task_id = i.task_id
+             WHERE i.moduleid = :moduleid
+               AND s.moduleid = :moduleid
+               AND f.exec_task_type in (:task_type_imp, :task_type_exp)
+               AND t.status = '1'
+               AND t.distributor_type = '1'
+               AND t.data_status = 'E'
+          ORDER BY s.exec_order
+        ]]></sql>
+    </sqlinfo>
+
+    <sqlinfo sqlid="C018Q16">
+        <sql dbtype="all"><![CDATA[
+            SELECT
+                TASK_ID
+            FROM  kbatch_task_exec
+            WHERE SHOULD_EXEC_DATE=:should_exec_date
+            AND   TASK_ID=:task_id
+            AND   target_code = :target_code
+            AND   TASK_GROUP = :task_group
+            FOR UPDATE
+        ]]></sql>
+        <sql dbtype="db2"><![CDATA[
+            SELECT
+                TASK_ID
+            FROM  kbatch_task_exec
+            WHERE SHOULD_EXEC_DATE=:should_exec_date
+            AND   TASK_ID=:task_id
+            AND   target_code = :target_code
+            AND   TASK_GROUP = :task_group
+            FOR UPDATE WITH RS
+        ]]></sql>
+    </sqlinfo>
+
+
+    <sqlinfo sqlid="C018Q161">
+        <sql dbtype="all"><![CDATA[
+            SELECT
+                TASK_ID
+            FROM  kbatch_task_exec
+            WHERE TASK_DATE=:task_date
+            AND   TASK_ID=:task_id
+            AND   target_code = :target_code
+            AND   TASK_GROUP = :task_group
+            FOR UPDATE
+        ]]></sql>
+        <sql dbtype="db2"><![CDATA[
+            SELECT
+                TASK_ID
+            FROM  kbatch_task_exec
+            WHERE TASK_DATE=:task_date
+            AND   TASK_ID=:task_id
+            AND   target_code = :target_code
+            AND   TASK_GROUP = :task_group
+            FOR UPDATE WITH RS
+        ]]></sql>
+    </sqlinfo>
+
+    <sqlinfo sqlid="C018Q19">
+        <sql dbtype="all"><![CDATA[
+            select FILE_TYPE from TA_INTF_FILE_MANAGE
+            WHERE FILE_KIND = '1'
+            AND SYSTEM_SERNO = 'lc'
+            AND STATUS = '1'
+            AND TASK_GROUP = :TASK_GROUP
+        ]]></sql>
+    </sqlinfo>
+    <sqlinfo sqlid="C018Q20">
+        <sql dbtype="all"><![CDATA[
+            select PROD_CODE
+            from TA_PROD_BONUS
+            where REGISTER_DATE = :REGISTER_DATE
+        ]]></sql>
+    </sqlinfo>
+    <sqlinfo sqlid="C018Q21">
+        <sql dbtype="all"><![CDATA[
+            select PROD_CODE
+            from TA_PROD_BONUS
+            where PAID_DATE = :PAID_DATE
+        ]]></sql>
+    </sqlinfo>
+
+    <!-- 查询实时清算任务信息  -->
+    <sqlinfo sqlid="C018Q195">
+        <sql dbtype="all"><![CDATA[
+             SELECT s.task_group,
+                    g.running_type,
+                    date_format(date_add(now(),interval 5 minute),'%H%i%s') should_exec_time,
+                    g.alarm_time,
+                    i.task_id,
+                    i.task_name,
+                    i.moduleid,
+                    i.task_type,
+                    i.can_again,
+                    s.pre_task_id,
+                    s.exec_order,
+                    s.task_params,
+                    s.simple_flow,
+                    i.service_class,
+                    i.req_class,
+                    i.in_class,
+                    i.task_model
+               FROM kbatch_task_set s
+          LEFT JOIN kbatch_group_info g
+                 ON g.task_group = s.task_group
+          LEFT JOIN kbatch_task_info i
+                 ON s.task_id = i.task_id
+              WHERE i.moduleid = :moduleid
+                AND i.task_type = :task_type
+           ORDER BY s.exec_order
+        ]]></sql>
+    </sqlinfo>
+
+    <!-- 查询系统清算任务信息  -->
+    <sqlinfo sqlid="C018Q196">
+        <sql dbtype="all"><![CDATA[
+             SELECT s.task_group,
+                    g.running_type,
+                    g.should_exec_time,
+                    g.alarm_time,
+                    i.task_id,
+                    i.task_name,
+                    i.moduleid,
+                    i.task_type,
+                    i.can_again,
+                    s.pre_task_id,
+                    s.exec_order,
+                    s.task_params,
+                    s.simple_flow,
+                    i.service_class,
+                    i.req_class,
+                    i.in_class,
+                    i.task_model
+               FROM kbatch_task_set s
+          LEFT JOIN kbatch_group_info g
+                 ON g.task_group = s.task_group
+          LEFT JOIN kbatch_task_info i
+                 ON s.task_id = i.task_id
+              WHERE i.moduleid = :moduleid
+                AND i.task_type = :task_type
+           ORDER BY s.exec_order
+        ]]></sql>
+    </sqlinfo>
+
+    <!-- 查询资管清算任务信息  -->
+    <sqlinfo sqlid="C018Q197">
+        <sql dbtype="all"><![CDATA[
+             SELECT t.file_type,
+                    g.task_group,
+                    g.running_type,
+                    g.should_exec_time,
+                    g.alarm_time,
+                    i.task_id,
+                    i.task_name,
+                    i.moduleid,
+                    i.task_type,
+                    i.can_again,
+                    s.pre_task_id,
+                    s.exec_order,
+                    s.task_params,
+                    s.simple_flow,
+                    i.service_class,
+                    i.req_class,
+                    i.in_class
+               FROM ta_clear_group_member f
+          LEFT JOIN kbatch_group_info g
+                 ON g.task_group = f.task_group
+          LEFT JOIN ta_intf_file_manage t
+                 ON f.group_member=t.file_type
+          LEFT JOIN kbatch_task_set s
+                 ON f.task_group=s.task_group
+          LEFT JOIN kbatch_task_info i
+                 ON s.task_id = i.task_id
+              WHERE i.moduleid = :moduleid
+                AND i.task_type = :task_type
+                AND t.status = '1'
+           ORDER BY s.exec_order
+        ]]></sql>
+    </sqlinfo>
+
+
+    <!-- 查询判断某天是否销售商工作日  -->
+    <sqlinfo sqlid="C018Q199">
+        <sql dbtype="all"><![CDATA[
+         SELECT count(1) num
+             FROM ta_distributor_info d
+             LEFT JOIN sys_workday_set w1 ON d.pgmno=w1.pgmno
+             WHERE 
+                 w1.workday= :currWorkdate
+                 AND d.distributor_code= :distributor_code
+                 and d.data_status = 'E'
+        ]]></sql>
+    </sqlinfo>
+
+    <!-- 查询产品清算任务配置信息  -->
+    <sqlinfo sqlid="C018Q200">
+        <sql dbtype="all"><![CDATA[
+           SELECT p.prod_mode,
+                  p.prod_code,
+                  s.task_group,
+                  g.running_type,
+                  g.should_exec_time,
+                  g.alarm_time,
+                  i.task_id,
+                  i.task_name,
+                  i.moduleid,
+                  i.task_type,
+                  i.can_again,
+                  s.pre_task_id,
+                  s.exec_order,
+                  s.task_params,
+                  s.simple_flow,
+                  i.service_class,
+                  i.req_class,
+                  i.in_class
+             FROM ta_prod_info p
+        LEFT JOIN ta_prod_task_set s
+               ON p.batch_mode = s.batch_mode
+        LEFT JOIN kbatch_group_info g
+               ON g.task_group = s.task_group
+        LEFT JOIN kbatch_task_info i
+               ON s.task_id = i.task_id
+        LEFT JOIN ta_prod_period tpp
+               ON tpp.prod_code = p.prod_code
+            WHERE g.exec_task_type=:exec_task_type
+              AND s.moduleid = :moduleid
+              AND i.task_id IS NOT NULL
+              AND i.moduleid = :moduleid
+              AND p.data_status = :data_status
+              AND tpp.data_status = 'E'
+              AND (p.prod_lifecycle IN ('2','4','5','6','7','3') OR (p.prod_lifecycle ='8' AND winding_date=:work_date))
+            ]]>
+            <if test="prod_mode != null and prod_mode != ''">
+                AND p.prod_mode = :prod_mode
+            </if>
+            ORDER BY s.exec_order
+        </sql>
+    </sqlinfo>
+    <sqlinfo sqlid="C018Q201">
+        <sql dbtype="all"><![CDATA[
+         SELECT count(1) num
+             FROM ta_prod_info a
+             LEFT JOIN SYS_WORKDAY_SET w1 ON a.pgmno=w1.pgmno
+            WHERE w1.WORKDAY= :currWorkdate
+             AND a.DATA_STATUS = 'E'
+             AND a.PROD_CODE = :prod_code
+        ]]></sql>
+    </sqlinfo>
+
+
+    <!-- 插入数据到批量任务执行预展示表 .-->
+    <sqlinfo sqlid="C018U023">
+        <sql dbtype="all"><![CDATA[
+            INSERT INTO kbatch_task_exec_display
+                (task_execid,task_date,task_group,task_id,pre_task_id,moduleid,target_code,
+                prod_code,should_exec_date,should_exec_time,exec_status,is_exec,distributor_batch,crt_time,upd_time)
+             VALUES
+                (:task_execid,:task_date,:task_group,:task_id,:pre_task_id,:moduleid,:target_code,
+                :prod_code,:should_exec_date,:should_exec_time,:exec_status,:is_exec,:distributor_batch,current_timestamp,current_timestamp)
+        ]]></sql>
+
+        <sql dbtype="db2"><![CDATA[
+            INSERT INTO kbatch_task_exec_display
+                (task_execid,task_date,task_group,task_id,pre_task_id,moduleid,target_code,
+                prod_code,should_exec_date,should_exec_time,exec_status,is_exec,distributor_batch,crt_time,upd_time)
+             VALUES
+                (:task_execid,:task_date,:task_group,:task_id,:pre_task_id,:moduleid,:target_code,
+                :prod_code,:should_exec_date,:should_exec_time,:exec_status,:is_exec,:distributor_batch,current timestamp,current timestamp)
+        ]]></sql>
+    </sqlinfo>
+
+    <!-- 更新批量任务执行预展示表是否需要执行 .-->
+    <sqlinfo sqlid="C018U024">
+        <sql dbtype="all"><![CDATA[
+            UPDATE
+                kbatch_task_exec_display
+            SET
+                is_exec = :is_exec,
+                pre_task_id = :pre_task_id,
+                upd_time = current_timestamp
+            WHERE
+                task_date=:task_date
+                AND task_group=:task_group
+                AND task_id=:task_id
+                AND moduleid=:moduleid
+        ]]>
+            <if test="target_code != null and target_code != ''">
+                AND target_code = :target_code
+            </if>
+            <if test="prod_code != null and prod_code != ''">
+                AND prod_code = :prod_code
+            </if>
+        </sql>
+
+        <sql dbtype="db2"><![CDATA[
+            UPDATE
+                kbatch_task_exec_display
+            SET
+                is_exec = :is_exec,
+                pre_task_id = :pre_task_id,
+                upd_time = current timestamp
+            WHERE
+                task_date=:task_date
+                AND task_group=:task_group
+                AND task_id=:task_id
+                AND moduleid=:moduleid
+        ]]>
+            <if test="target_code != null and target_code != ''">
+                AND target_code = :target_code
+            </if>
+            <if test="prod_code != null and prod_code != ''">
+                AND prod_code = :prod_code
+            </if>
+        </sql>
+    </sqlinfo>
+
+    <!-- 删除任务子步骤执行表 .-->
+    <sqlinfo sqlid="C018U025">
+        <sql dbtype="all"><![CDATA[
+            delete from kbatch_task_step_exec where task_date=:task_date and task_group=:task_group
+        ]]>
+        </sql>
+
+        <sql dbtype="db2"><![CDATA[
+            delete from kbatch_task_step_exec where task_date=:task_date and task_group=:task_group
+        ]]>
+        </sql>
+    </sqlinfo>
+
+    <!-- 删除任务执行表 .-->
+    <sqlinfo sqlid="C018U026">
+        <sql dbtype="all"><![CDATA[
+            delete from kbatch_task_exec where task_date=:task_date and task_group=:task_group
+        ]]>
+        </sql>
+
+        <sql dbtype="db2"><![CDATA[
+            delete from kbatch_task_exec where task_date=:task_date and task_group=:task_group
+        ]]>
+        </sql>
+    </sqlinfo>
+
+    <!-- 删除展示表 .-->
+    <sqlinfo sqlid="C018U027">
+        <sql dbtype="all"><![CDATA[
+            delete from kbatch_task_exec_display where task_date=:task_date and task_group=:task_group
+        ]]>
+        </sql>
+
+        <sql dbtype="db2"><![CDATA[
+            delete from kbatch_task_exec_display where task_date=:task_date and task_group=:task_group
+        ]]>
+        </sql>
+    </sqlinfo>
+
+    <!-- 查询批量任务执行预展示表 -->
+    <sqlinfo sqlid="C018Q203">
+        <sql dbtype="all"><![CDATA[
+            SELECT task_execid,      task_date,         task_group,  task_id,
+                   pre_task_id,      moduleid,          target_code, prod_code,
+                   should_exec_date, should_exec_time,  exec_status, is_exec , auto_exec
+              FROM kbatch_task_exec_display
+             WHERE task_date  = :task_date
+               AND moduleid   = :moduleid
+            ]]>
+            <if test="task_group != null and task_group != ''">
+                AND task_group = :task_group
+            </if>
+            <if test="task_id != null and task_id != ''">
+                AND task_id = :task_id
+            </if>
+            <if test="prod_code != null and prod_code != ''">
+                AND prod_code = :prod_code
+            </if>
+            <if test="target_code != null and target_code != ''">
+                AND target_code = :target_code
+            </if>
+        </sql>
+    </sqlinfo>
+
+    <!-- 查询任务执行表当日所有已经注册的产品清算数据 S000 为回滚任务 -->
+    <sqlinfo sqlid="C018Q204">
+        <sql dbtype="all"><![CDATA[
+            SELECT exec.task_group, exec.task_id, exec.prod_code
+              FROM kbatch_task_exec exec
+         LEFT JOIN kbatch_task_info i
+                ON exec.task_id = i.task_id
+             WHERE i.moduleid   = :moduleid
+               AND i.task_type    = :task_type
+               AND exec.task_date = :task_date
+               AND exec.task_id   <> 'S000'
+            ]]>
+            <if test="prod_code != null and prod_code != ''"><![CDATA[
+               AND exec.prod_code = :prod_code
+            ]]></if>
+        </sql>
+    </sqlinfo>
+
+    <!--查询任务执行表当日所有已经注册的销售商清算数据 -->
+    <sqlinfo sqlid="C018Q205">
+        <sql dbtype="all"><![CDATA[
+            SELECT
+                exec.task_group,exec.task_id,exec.target_code,exec.distributor_batch
+             FROM  kbatch_task_exec exec
+                        LEFT JOIN kbatch_task_info i ON exec.task_id = i.task_id
+             WHERE
+                    i.moduleid = :moduleid
+                 AND i.task_type IN (:task_type1,:task_type2)
+                 AND exec.task_date =:task_date
+            ]]>
+            <if test="ditributor_code != null and ditributor_code != ''">
+                AND exec.target_code = :ditributor_code
+            </if>
+        </sql>
+    </sqlinfo>
+
+
+    <!--查询任务执行表当日所有已经注册的资管清算数据 -->
+    <sqlinfo sqlid="C018Q2051">
+        <sql dbtype="all"><![CDATA[
+            SELECT
+                exec.task_group,exec.task_id,exec.target_code
+             FROM  kbatch_task_exec exec
+                        LEFT JOIN kbatch_task_info i ON exec.task_id = i.task_id
+             WHERE
+                    i.moduleid = :moduleid
+                 AND i.task_type = :task_type
+                 AND exec.task_date =:task_date
+            ]]>
+        </sql>
+    </sqlinfo>
+
+
+    <!-- 查询任务执行表当日未执行完成的清算任务 -->
+    <sqlinfo sqlid="C018Q206">
+        <sql dbtype="all"><![CDATA[
+            SELECT dis.task_group, dis.task_id, dis.target_code, dis.prod_code, i.task_type
+              FROM kbatch_task_exec_display dis
+        LEFT JOIN kbatch_task_exec exec
+               ON exec.task_execid = dis.task_execid
+        LEFT JOIN kbatch_task_info i
+               ON dis.task_id = i.task_id
+            WHERE i.moduleid    = :moduleid
+              AND dis.moduleid  = :moduleid
+              AND dis.task_date = :task_date
+              AND (dis.is_exec  = :is_exec  AND  dis.exec_status NOT IN (:exec_status_skip, :exec_status_termination)
+              AND (exec.exec_status IS NULL OR exec.exec_status NOT IN (:exec_status_success, :exec_status_skip, :exec_status_termination)))
+        ]]></sql>
+    </sqlinfo>
+
+
+    <!-- 查询任务执行表当日未执行完且不是日切任务的清算任务 -->
+    <sqlinfo sqlid="C018Q2061">
+        <sql dbtype="all"><![CDATA[
+
+           SELECT
+               dis.task_group,dis.task_id,dis.target_code,dis.prod_code,i.task_type
+             FROM
+               kbatch_task_exec_display dis
+                   LEFT JOIN kbatch_task_exec exec ON exec.task_execid = dis.task_execid
+                 LEFT JOIN kbatch_task_info i ON dis.task_id = i.task_id
+             WHERE
+                    i.moduleid = :moduleid
+                 AND dis.moduleid = :moduleid
+                 AND dis.task_date =:task_date
+                 AND (dis.is_exec = :is_exec  AND  dis.exec_status NOT IN (:exec_status_skip,:exec_status_termination)
+                        AND (exec.exec_status is null OR exec.exec_status NOT IN (:exec_status_success,:exec_status_skip,:exec_status_termination)))
+                 AND  dis.task_id <> 'C010'
+            ]]>
+        </sql>
+    </sqlinfo>
+
+    <!-- 查询任务预展示表当日不需要执行的清算任务 -->
+    <sqlinfo sqlid="C018Q207">
+        <sql dbtype="all"><![CDATA[
+            SELECT
+                dis.task_group,dis.task_id,dis.target_code,dis.prod_code,dis.exec_status,i.task_type
+             FROM
+                kbatch_task_exec_display dis
+                        LEFT JOIN kbatch_task_info i ON dis.task_id = i.task_id
+             WHERE
+                    dis.moduleid = :moduleid
+                 AND dis.moduleid = :moduleid
+                 AND dis.task_date =:task_date
+                 AND dis.is_exec = :is_exec
+        ]]></sql>
+    </sqlinfo>
+
+    <!-- 查询未全部执行完成的任务组 -->
+    <sqlinfo sqlid="C018Q208">
+        <sql dbtype="all"><![CDATA[
+            SELECT
+                DISTINCT dis.task_group
+             FROM
+                kbatch_task_exec_display dis
+             WHERE
+                    dis.moduleid = :moduleid
+                 AND dis.task_date =:task_date
+                 AND dis.is_exec = :is_exec_yes
+                 AND dis.exec_status != :exec_status_skip
+                 AND NOT EXISTS(
+                    SELECT 1 FROM kbatch_task_exec exec
+                    WHERE
+                        exec.task_execid = dis.task_execid
+                     AND exec.exec_status in (:exec_status_success,:exec_status_skip,:exec_status_termination)
+                 )
+            ]]>
+        </sql>
+    </sqlinfo>
+
+    <!-- 查询所有清算任务信息 -->
+    <sqlinfo sqlid="C018Q209">
+        <sql dbtype="all"><![CDATA[
+            SELECT i.task_id, i.task_type
+              FROM kbatch_task_info i
+             WHERE i.moduleid = :moduleid
+        ]]></sql>
+    </sqlinfo>
+
+    <!-- 查询所有清算组信息 -->
+    <sqlinfo sqlid="C018Q210">
+        <sql dbtype="all"><![CDATA[
+            SELECT task_group, exec_task_type, pre_task_group
+              FROM kbatch_group_info
+        ]]></sql>
+    </sqlinfo>
+
+    <!-- 查询任务预展示表当日数据条数 -->
+    <sqlinfo sqlid="C018Q211">
+        <sql dbtype="all"><![CDATA[
+            SELECT 1
+              FROM kbatch_task_exec_display dis
+             WHERE dis.moduleid  = :moduleid
+               AND dis.task_date = :task_date
+        ]]></sql>
+    </sqlinfo>
+
+    <!-- 查询当日是否某个产品的工作日 -->
+    <sqlinfo sqlid="C018Q213">
+        <sql dbtype="all"><![CDATA[
+            SELECT a.prod_code, a.pgmno
+              FROM ta_prod_info a
+         LEFT JOIN SYS_WORKDAY_SET w1
+                ON a.pgmno    = w1.pgmno
+               AND w1.WORKDAY = :current_workdate
+               AND a.DATA_STATUS = 'E'
+        ]]></sql>
+    </sqlinfo>
+
+    <!-- 查询任务执行表成功或失败的组 S000 为回滚任务 -->
+    <sqlinfo sqlid="C018Q215">
+        <sql dbtype="all"><![CDATA[
+         select distinct t.task_group
+              from kbatch_task_exec t
+           left join kbatch_group_info t1 on t.task_group = t1.task_group
+          where t.moduleid   = :moduleid
+            and t1.exec_task_type    = :task_type
+            and t.task_date = :task_date
+            and t.task_id   <> 'S000'
+            and not exists(select 1 from kbatch_task_exec k where t.task_group=k.task_group and k.task_date = :task_date and k.exec_status not in(:exec_status_success,:exec_status_skip,:exec_status_termination))
+        ]]></sql>
+    </sqlinfo>
+
+    <!-- 查询数据归档清算任务信息  -->
+    <sqlinfo sqlid="C018Q301">
+        <sql dbtype="all"><![CDATA[
+             SELECT s.task_group,
+                    g.running_type,
+                    g.should_exec_time,
+                    g.alarm_time,
+                    i.task_id,
+                    i.task_name,
+                    i.moduleid,
+                    i.task_type,
+                    i.can_again,
+                    s.pre_task_id,
+                    s.exec_order,
+                    s.task_params,
+                    s.simple_flow,
+                    i.service_class,
+                    i.req_class,
+                    i.in_class
+               FROM kbatch_task_set s
+          LEFT JOIN kbatch_group_info g
+                 ON g.task_group = s.task_group
+          LEFT JOIN kbatch_task_info i
+                 ON s.task_id = i.task_id
+              WHERE i.moduleid = :moduleid
+                AND i.task_id = 'C333'
+                AND i.task_type = :task_type
+           ORDER BY s.exec_order
+        ]]></sql>
+    </sqlinfo>
+
+    <!-- 查询任务执行表当日所有已经注册的数据归档任务 -->
+    <sqlinfo sqlid="C018Q302">
+        <sql dbtype="all"><![CDATA[
+            SELECT exec.task_group, exec.task_id, exec.task_params
+              FROM kbatch_task_exec exec
+         LEFT JOIN kbatch_task_info i
+                ON exec.task_id = i.task_id
+             WHERE exec.task_id = 'C333'
+               AND i.moduleid   = :moduleid
+               AND i.task_type    = :task_type
+               AND exec.task_date = :task_date
+            ]]>
+        </sql>
+    </sqlinfo>
+
+
+    <sqlinfo sqlid="M080710">
+        <sql dbtype="all"><![CDATA[
+            INSERT INTO ods_fa_readassets (asset_code,prod_name,isprodorasset,change_date,ftool_code,ftool_name,t8_sys_adtype_id,market,positionbln,accruedincomebln,
+			npamountbln,FAIRVALUEBLN,FEEPAYBLN,TAXFEEBLN,PAY_TAXBLN,ACCRUEDPAYBLN,SECURITIESLIQUIDATIONBLN,INTERESTBLN,PRINCIPALBLN,jrjs_value,inputuser,crt_date,crt_time,balance,
+			account_type,net_price,holding_direction)
+			VALUES
+                (:asset_code,:prod_name,:isprodorasset,:change_date,:ftool_code,:ftool_name,
+                :t8_sys_adtype_id,:market,:positionbln,:accruedincomebln,:npamountbln,:fairvaluebln,:feepaybln,:taxfeebln,
+                :pay_taxbln,:accruedpaybln,:securitiesliquidationbln,:interestbln,:principalbln,:jrjs_value,'','','',:balance,:account_type,:net_price,:holding_direction)
+        ]]></sql>
+    </sqlinfo>
+    <sqlinfo sqlid="M080711">
+        <sql dbtype="all"><![CDATA[
+            INSERT INTO ods_fa_readassets_merge(asset_code,prod_name,isprodorasset,change_date,ftool_code,ftool_name,t8_sys_adtype_id,market,positionbln,interestbln,accruedincomebln,
+				npamountbln,feepaybln,fairvaluebln,taxfeebln,pay_taxbln,accruedpaybln,securitiesliquidationbln,principalbln,jrjs_value,balance,account_type,net_price,holding_direction)
+			VALUES
+                (:asset_code,:prod_name,:isprodorasset,:change_date,:ftool_code,:ftool_name,
+                :t8_sys_adtype_id,:market,:positionbln,:interestbln,:accruedincomebln,:npamountbln,:feepaybln,:fairvaluebln,:taxfeebln,
+                :pay_taxbln,:accruedpaybln,:securitiesliquidationbln,:principalbln,:jrjs_value,:balance,:account_type,:net_price,:holding_direction)
+        ]]></sql>
+    </sqlinfo>
+
+    <!-- 查询当天是否是工作日  -->
+    <sqlinfo sqlid="M080712">
+        <sql dbtype="all"><![CDATA[
+         SELECT workday FROM sys_workday_set WHERE workday = :currWorkdate
+        ]]></sql>
+    </sqlinfo>
+
+    <sqlinfo sqlid="M080713">
+        <sql dbtype="all"><![CDATA[
+         select task_execid,exec_status from  kbatch_task_exec where TASK_ID = :taskId and  TASK_DATE = :currWorkdate limit 1
+        ]]></sql>
+    </sqlinfo>
+
+    <sqlinfo sqlid="898989">
+        <sql dbtype="all"><![CDATA[
+         select * from aaa  where busi_date >= :start and  busi_date <= :end
+        ]]></sql>
+    </sqlinfo>
+    <sqlinfo sqlid="8989891">
+        <sql dbtype="all"><![CDATA[
+            INSERT INTO aaa(id,busi_date,num)
+			VALUES
+                (:id,:busi_date,:num)
+        ]]></sql>
+    </sqlinfo>
+
+    <sqlinfo sqlid="8989898">
+        <sql dbtype="all"><![CDATA[
+         select OBJECT_ID, S_INFO_WINDCODE, TRADE_DT, CRNCY_CODE, S_DQ_PRECLOSE, S_DQ_OPEN, S_DQ_HIGH, S_DQ_LOW, S_DQ_CLOSE, S_DQ_CHANGE, S_DQ_PCTCHANGE, S_DQ_VOLUME, S_DQ_AMOUNT, SEC_ID, OPDATE, OPMODE, UPDATE_TIMESTAMP from aindexeodprices where OBJECT_ID >= :start and  OBJECT_ID <= :end
+        ]]></sql>
+    </sqlinfo>
+    <sqlinfo sqlid="8989899">
+        <sql dbtype="all"><![CDATA[
+            INSERT INTO aindexeodprices (OBJECT_ID, S_INFO_WINDCODE, TRADE_DT, CRNCY_CODE, S_DQ_PRECLOSE, S_DQ_OPEN, S_DQ_HIGH, S_DQ_LOW, S_DQ_CLOSE, S_DQ_CHANGE, S_DQ_PCTCHANGE, S_DQ_VOLUME, S_DQ_AMOUNT, SEC_ID, OPDATE, OPMODE, UPDATE_TIMESTAMP)
+            VALUES (:OBJECT_ID, :S_INFO_WINDCODE, :TRADE_DT, :CRNCY_CODE, :S_DQ_PRECLOSE, :S_DQ_OPEN, :S_DQ_HIGH, :S_DQ_LOW, :S_DQ_CLOSE, :S_DQ_CHANGE, :S_DQ_PCTCHANGE, :S_DQ_VOLUME, :S_DQ_AMOUNT, :SEC_ID, :OPDATE, :OPMODE, :UPDATE_TIMESTAMP)
+        ]]></sql>
+    </sqlinfo>
+</sqlinfos>

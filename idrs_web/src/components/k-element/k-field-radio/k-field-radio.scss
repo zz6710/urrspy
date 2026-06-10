@@ -1,0 +1,13 @@
+.md-radio-label{
+  top: 0 !important;
+  margin-right: 3px;
+  line-height: 32px;
+}
+
+.md-field{
+  min-height: 42px !important;
+}
+
+.md-radio label:after{
+  display: none;
+}

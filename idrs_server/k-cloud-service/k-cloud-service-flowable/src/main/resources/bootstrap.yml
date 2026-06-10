@@ -1,0 +1,33 @@
+kayak:
+  # 是否为微服务
+  service: true
+log:
+  path: /usr/java/logs/workflow
+spring:
+  application:
+    name: WorkflowServer
+  main:
+    allow-bean-definition-overriding: true
+  mvc:
+    pathmatch:
+      # 配置策略
+      matching-strategy: ant-path-matcher
+  cloud:
+    nacos:
+      # nacos服务端开启鉴权，需要验证的用户名密码
+      username: nacos
+      password: nacos
+      config:
+        server-addr: 127.0.0.1:8848
+        namespace: hzxp
+        ext-config[0]:
+          data-id: jdbc.yml
+          group: hzxp
+          refresh: true
+        ext-config[1]:
+          data-id: flowable-app.yml
+          group: hzxp
+          refresh: true
+      discovery:
+        server-addr: 127.0.0.1:8848
+        namespace: hzxp

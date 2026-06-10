@@ -1,0 +1,52 @@
+---
+kind: pipeline
+type: docker
+name: default
+
+clone:
+  skip_verify: true
+
+steps:
+  - name: fetch git tags
+    image: prodimg.cebwm.com/repository/prodimg/golang:1.14.4-stretch
+    commands:
+      - git fetch --all --tags
+      - git submodule update --init
+  - name: maven install
+    image: prodimg.cebwm.com/repository/prodimg/maven:3.6-jdk-8
+    custom_dns: [ 10.1.20.3, 10.1.20.2 ]
+    commands:
+      - mvn clean install -s /usr/share/maven/ref/settings.xml
+      
+  - name: prep image build
+    image: prodimg.cebwm.com/repository/prodimg/golang:1.14.4-stretch
+    commands:
+      - echo -n `repoman ver` > .tags
+    when:
+      event:
+        - tag
+  - name: jar release
+    image: plugins/gitea-release
+    settings:
+      api_key:
+        from_secret: giteatoken
+      base_url: https://git.cebwm.com/
+      title: jar release
+      files:
+        - k-cloud-service/k-cloud-service-gateway/target/gatewayApp.jar
+    when:
+      event: tag
+  - name: build gateway docker image
+    image: plugins/docker
+    settings:
+      registry: https://prodimg.cebwm.com
+      repo: prodimg.cebwm.com/repository/prodimg/pms
+      username:
+        from_secret: docker_username
+      password:
+        from_secret: docker_password
+      context: ./
+      dockerfile: ./Dockerfile
+    when:
+      event:
+        - tag

@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>pms_server</groupId>
+		<artifactId>k-cloud-service</artifactId>
+		<version>1.0.0</version>
+	</parent>
+	<artifactId>k-cloud-service-api</artifactId>
+	<version>1.0.0</version>
+	<name>k-cloud-service-api</name>
+	<url>http://maven.apache.org</url>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	<dependencies>
+		<!--  Nacos注册中心和配置中心 -->
+		<dependency>
+			<groupId>com.alibaba.cloud</groupId>
+			<artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.alibaba.cloud</groupId>
+			<artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>pms_server</groupId>
+			<artifactId>k-cloud-service-starter-micro-server</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>pms_server</groupId>-->
+<!--			<artifactId>k-cloud-discovery-nacos</artifactId>-->
+<!--			<version>1.0.0</version>-->
+<!--		</dependency>-->
+		<dependency>
+			<groupId>org.freemarker</groupId>
+			<artifactId>freemarker</artifactId>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>1.5.8.RELEASE</version>
+				<configuration>
+					<includeSystemScope>true</includeSystemScope>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

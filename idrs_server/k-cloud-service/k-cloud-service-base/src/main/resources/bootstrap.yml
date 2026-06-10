@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: BaseServer
+#  profiles:
+#    active: dev
+  cloud:
+    nacos:
+      username: nacos
+      password: nacos
+      config:
+        server-addr: 127.0.0.1:8848
+        #        file-extension: yml
+        ext-config[0]:
+          data-id: jdbc.yml
+          group: hzxp
+          refresh: true
+        ext-config[1]:
+          data-id: common.yml
+          group: hzxp
+          refresh: true
+        ext-config[2]:
+          data-id: base-server.yml
+          group: hzxp
+          refresh: true
+        namespace: hzxp
+      discovery:
+        server-addr: 127.0.0.1:8848
+        namespace: hzxp

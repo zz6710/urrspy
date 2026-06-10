@@ -1,0 +1,30 @@
+{
+  "head":[
+    "first|数据文件头部字符|default:0"
+  ],
+  "body":[
+    "OBJECT_ID|对象id",
+    "S_INFO_WINDCODE|Wind代码",
+    "TRADE_DT|交易日期",
+    "CRNCY_CODE|货币代码",
+    "S_DQ_PRECLOSE|昨日收盘价(点)",
+    "S_DQ_OPEN|开盘价(点)",
+    "S_DQ_HIGH|最高价(点)",
+    "S_DQ_LOW|最低价(点)",
+    "S_DQ_CLOSE|收盘价(点)",
+    "S_DQ_CHANGE|涨跌(点)",
+    "S_DQ_PCTCHANGE|涨跌幅(%)",
+    "S_DQ_VOLUME|成交量(手)",
+    "S_DQ_AMOUNT|成交金额(千元)",
+    "SEC_ID|证券ID",
+    "OPDATE|操作日期",
+    "OPMODE|操作模式",
+    "UPDATE_TIMESTAMP|更新日期"
+  ],
+  "tail":[
+    "fileEnd|数据文件尾部字符|default:OFDCFEND"
+  ],
+  "protocol":"SP",
+  "lineBreak":"\r\n"
+
+}

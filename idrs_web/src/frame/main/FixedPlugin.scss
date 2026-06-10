@@ -1,0 +1,22 @@
+ .centered-row {
+    display: flex;
+    height: 100%;
+    align-items: center;
+  }
+
+  .button-container .btn {
+    margin-right: 10px;
+  }
+
+  .centered-buttons {
+    display: flex;
+    justify-content: center;
+  }
+
+  .fix-icon {
+    width: 28px !important;
+    height: 28px !important;;
+    margin-top: 10px !important;;
+    margin-bottom: 10px !important;;
+    margin-left: 18px !important;;
+  }

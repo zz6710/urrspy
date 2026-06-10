@@ -1,0 +1,38 @@
+package com.kayak.rpt.zz.historyInfo.dao;
+
+import com.kayak.core.sql.UpdateResult;
+import com.kayak.rpt.zz.historyInfo.model.ProdRegistFilingInfoh;
+import org.apache.logging.log4j.util.Strings;
+import org.springframework.stereotype.Repository;
+
+import com.kayak.base.dao.ComnDao;
+import com.kayak.core.sql.SqlParam;
+import com.kayak.core.sql.SqlResult;
+
+@Repository
+public class ProdRegistFilingInfohDao extends ComnDao {
+
+	public SqlResult<ProdRegistFilingInfoh> findProdRegistFilingInfohs(SqlParam<ProdRegistFilingInfoh> params) throws Exception {
+		String sql = "SELECT PROD_NAME,T.IDENT_CODE,T.PROD_BRAND,T.PROD_TERM_NO,T.BANK_CODE,T.PROD_APRV_NM,T.APPROVER_ID_CODE,T.PROD_DSN_NM,T.DESIGNER_ID_CODE,T.INV_MNG_NM,T.MANAGER_ID_CODE,T.CONTACT_NAME,T.CONTACT_TELPHONE,T.CONTACT_MOBILE,T.CONTACT_EMAIL,T.TYPE_COLLECT,T.PROD_RETRUN_TYPE,T.PROD_TERM,T.FIANCIAL_EXCLUSIVE,T.INVERT_REGION,T.INVERT_COUNTRY,T.SERVICE_MODE,T.OPERATION_MODE,T.MIN_HOLD_PERIOD,T.MIN_HOLD_DAY,T.OPTION_REDEMPT_PERIOD,T.CASH_MANAGER,T.ASSET_AC_METHOD,T.PROD_MANA_MODE,T.AC_MANA_NAME,T.PRICE_METHOD,T.INVEST_TYPE,T.COOPERATE_MODE,T.COOPERATOR,T.INVEST_TYPE_RATIO,T.PROD_BENCHMARK,T.RISK_LEVEL,T.PROD_SALES_REGION,T.FUND_CUR,T.PRINCIPAL_CUR,T.INCOME_CUR,T.INVEST_THRESHOLD,T.PLAN_FUND_AMT,T.START_DATE_EARLIEST,T.START_DATE_LATEST,T.PRINCIPAL_DUE_DATE,T.INCOME_DUE_DATE,T.SALES_COMMISSION_RATE,T.MANAGE_FEE_RATE,T.DC_CD_IDENT_CODE,T.SEAS_CD_NATION,T.SEAS_CD_NAME,T.CD_FEE_RATE,T.RISK_RATE,T.EARLY_TN_OPTION,T.INVEST_RDM_OPTION,T.PROD_CRT_ENHANCE,T.CRT_INS_TYPE,T.PROD_CRT_METHOD,T.DETAILS,T.register_serno,T.IMP_DATE,T.REGISTER_DATE,T.REGISTER_STATUS,T.MAIN_DOC,T.FEASY_ASS_REPORT,T.INTER_AUDIT_DOC,T.DUE_DILIGENCR_DOC,T.LEGAL_DOC_SIFNED,T.PROD_SALE_DOC,T.PROD_SPECIFI,T.PROD_MARK_DOC,T.OTHER_DOC,T.NEW_PROD,T.FOUND_DT,T.PROD_ESP_PRPT,T.create_date,T.theory_report_start_date,T.theory_report_end_date,(case when LENGTH(T.DC_CD_NAME) = 2 then T.DC_CD_NAME else T3.itemkey end) as DC_CD_NAME FROM app_prod_regist_filing_info_h  T left join base_ex_map T2 on T2.dict = 't8_trutee_bank' AND T.DC_CD_NAME like   CONCAT('%',T2.SYS_VALUE,'%') left join sys_dict_item T3 on T3.dict = 't8_trutee_bank' and  T2.OUT_VALUE =  T3.itemval where 1=1 ";
+		if (Strings.isNotBlank(params.getModel().getStartDate())) {
+			sql += " and DATE(register_Date) >= DATE($S{startDate}) and DATE(register_Date) <= DATE($S{endDate})";
+		}
+		return super.findRows(sql, params);
+	}
+
+	public UpdateResult addProdRegistFilingInfoh(SqlParam<ProdRegistFilingInfoh> params) throws Exception {
+		return super.update("INSERT INTO app_prod_regist_filing_info_h(prod_name,ident_code,prod_brand,prod_term_no,bank_code,approver_id_code,designer_id_code,manager_id_code,contact_name,contact_telphone,contact_mobile,contact_email,type_collect,prod_retrun_type,prod_term,fiancial_exclusive,invert_region,invert_country,service_mode,operation_mode,min_hold_period,min_hold_day,option_redempt_period,cash_manager,asset_ac_method,prod_mana_mode,ac_mana_name,price_method,invest_type,cooperate_mode,cooperator,invest_type_ratio,prod_benchmark,risk_level,prod_sales_region,fund_cur,principal_cur,income_cur,invest_threshold,plan_fund_amt,start_date_earliest,start_date_latest,principal_due_date,income_due_date,sales_commission_rate,manage_fee_rate,dc_cd_name,dc_cd_ident_code,seas_cd_nation,seas_cd_name,cd_fee_rate,risk_rate,early_tn_option,invest_rdm_option,prod_crt_enhance,crt_ins_type,prod_crt_method,details,register_serno,imp_date,register_date,register_status,main_doc,feasy_ass_report,inter_audit_doc,due_diligencr_doc,legal_doc_sifned,prod_sale_doc,prod_specifi,prod_mark_doc,other_doc,new_prod) VALUES($S{prodName},$S{identCode},$S{prodBrand},$S{prodTermNo},$S{bankCode},$S{approverIdCode},$S{designerIdCode},$S{managerIdCode},$S{contactName},$S{contactTelphone},$S{contactMobile},$S{contactEmail},$S{typeCollect},$S{prodRetrunType},$S{prodTerm},$S{fiancialExclusive},$S{invertRegion},$S{invertCountry},$S{serviceMode},$S{operationMode},$S{minHoldPeriod},$S{minHoldDay},$S{optionRedemptPeriod},$S{cashManager},$S{assetAcMethod},$S{prodManaMode},$S{acManaName},$S{priceMethod},$S{investType},$S{cooperateMode},$S{cooperator},$S{investTypeRatio},$S{prodBenchmark},$S{riskLevel},$S{prodSalesRegion},$S{fundCur},$S{principalCur},$S{incomeCur},$S{investThreshold},$S{planFundAmt},$S{startDateEarliest},$S{startDateLatest},$S{principalDueDate},$S{incomeDueDate},$S{salesCommissionRate},$S{manageFeeRate},$S{dcCdName},$S{dcCdIdentCode},$S{seasCdNation},$S{seasCdName},$S{cdFeeRate},$S{riskRate},$S{earlyTnOption},$S{investRdmOption},$S{prodCrtEnhance},$S{crtInsType},$S{prodCrtMethod},$S{details},$S{registerSerno},$S{impDate},$S{registerDate},$S{registerStatus},$S{mainDoc},$S{feasyAssReport},$S{interAuditDoc},$S{dueDiligencrDoc},$S{legalDocSifned},$S{prodSaleDoc},$S{prodSpecifi},$S{prodMarkDoc},$S{otherDoc},$S{newProd})",
+				params.getModel());
+	}
+	
+	public UpdateResult updateProdRegistFilingInfoh(SqlParam<ProdRegistFilingInfoh> params) throws Exception {
+		return super.update("UPDATE app_prod_regist_filing_info_h SET prod_name=$S{prodName} ,ident_code=$S{identCode} ,prod_brand=$S{prodBrand} ,prod_term_no=$S{prodTermNo} ,bank_code=$S{bankCode} ,approver_id_code=$S{approverIdCode} ,designer_id_code=$S{designerIdCode} ,manager_id_code=$S{managerIdCode} ,contact_name=$S{contactName} ,contact_telphone=$S{contactTelphone} ,contact_mobile=$S{contactMobile} ,contact_email=$S{contactEmail} ,type_collect=$S{typeCollect} ,prod_retrun_type=$S{prodRetrunType} ,prod_term=$S{prodTerm} ,fiancial_exclusive=$S{fiancialExclusive} ,invert_region=$S{invertRegion} ,invert_country=$S{invertCountry} ,service_mode=$S{serviceMode} ,operation_mode=$S{operationMode} ,min_hold_period=$S{minHoldPeriod} ,min_hold_day=$S{minHoldDay} ,option_redempt_period=$S{optionRedemptPeriod} ,cash_manager=$S{cashManager} ,asset_ac_method=$S{assetAcMethod} ,prod_mana_mode=$S{prodManaMode} ,ac_mana_name=$S{acManaName} ,price_method=$S{priceMethod} ,invest_type=$S{investType} ,cooperate_mode=$S{cooperateMode} ,cooperator=$S{cooperator} ,invest_type_ratio=$S{investTypeRatio} ,prod_benchmark=$S{prodBenchmark} ,risk_level=$S{riskLevel} ,prod_sales_region=$S{prodSalesRegion} ,fund_cur=$S{fundCur} ,principal_cur=$S{principalCur} ,income_cur=$S{incomeCur} ,invest_threshold=$S{investThreshold} ,plan_fund_amt=$S{planFundAmt} ,start_date_earliest=$S{startDateEarliest} ,start_date_latest=$S{startDateLatest} ,principal_due_date=$S{principalDueDate} ,income_due_date=$S{incomeDueDate} ,sales_commission_rate=$S{salesCommissionRate} ,manage_fee_rate=$S{manageFeeRate} ,dc_cd_name=$S{dcCdName} ,dc_cd_ident_code=$S{dcCdIdentCode} ,seas_cd_nation=$S{seasCdNation} ,seas_cd_name=$S{seasCdName} ,cd_fee_rate=$S{cdFeeRate} ,risk_rate=$S{riskRate} ,early_tn_option=$S{earlyTnOption} ,invest_rdm_option=$S{investRdmOption} ,prod_crt_enhance=$S{prodCrtEnhance} ,crt_ins_type=$S{crtInsType} ,prod_crt_method=$S{prodCrtMethod} ,details=$S{details} ,register_serno=$S{registerSerno} ,imp_date=$S{impDate} ,register_date=$S{registerDate} ,main_doc=$S{mainDoc} ,feasy_ass_report=$S{feasyAssReport} ,inter_audit_doc=$S{interAuditDoc} ,due_diligencr_doc=$S{dueDiligencrDoc} ,legal_doc_sifned=$S{legalDocSifned} ,prod_sale_doc=$S{prodSaleDoc} ,prod_specifi=$S{prodSpecifi} ,prod_mark_doc=$S{prodMarkDoc} ,other_doc=$S{otherDoc} ,new_prod=$S{newProd}  WHERE ",
+				params.getModel());
+	}
+	
+	public UpdateResult deleteProdRegistFilingInfoh(SqlParam<ProdRegistFilingInfoh> params) throws Exception {
+		return super.update("DELETE FROM app_prod_regist_filing_info_h WHERE ",
+				params.getModel());
+	}
+
+}

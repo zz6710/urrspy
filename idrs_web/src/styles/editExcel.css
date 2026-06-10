@@ -1,0 +1,48 @@
+/* edit编辑页面样式共用组件 */
+.el-dialog__header {
+  font-weight: 600;
+  font-size: 18px;
+  color:#409EFF;
+}
+/*.el-dialog {
+  width:39% !important;
+  -webkit-animation-name: dialog-fadeIn;
+  -webkit-animation-duration: 0.4s;
+  -webkit-animation-iteration-count: 1;
+  -webkit-animation-delay: 0s;
+}*/
+
+.el-dialog__body {
+  padding: 20px;
+}
+
+.edit-head{
+  color: #a9a9a9;
+}
+
+.asterisk {
+  color: red;
+  margin-left: 2px;
+  margin-right: 2px;
+}
+
+/*.el-dialog__body .el-input {
+  width: 60%;
+  left: 12%;
+}*/
+
+/*.el-dialog__body b {
+  position: absolute;
+  left: 7%;
+  margin-top: 2px;
+}
+
+.dialogBody div {
+  margin-bottom: 7px;
+  line-height: 35px;
+}*/
+
+
+.el-checkbox {
+  margin-left: 18px;
+}

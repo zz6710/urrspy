@@ -1,0 +1,16 @@
+{
+  "head":[
+    "first|数据文件头部字符|default:0"
+  ],
+  "body":[
+    "id|序号",
+    "busi_date|交易日期",
+    "num|单号"
+  ],
+  "tail":[
+    "id|总笔数"
+  ],
+  "protocol":"SP",
+  "lineBreak":"\r\n"
+
+}

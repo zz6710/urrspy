@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kayak.web.workflow.mapper.WfDesktopMapper">
+    <resultMap type="com.kayak.web.workflow.domain.vo.WfTaskVo" id="WfTaskInstResultMap">
+        <result property="taskId" column="TASK_ID"/>
+        <result property="taskName" column="TASK_NAME"/>
+        <result property="taskDefKey" column="TASK_DEF_KEY_"/>
+        <result property="assigneeId" column="ASSIGNEE_"/>
+        <result property="startUserId" column="START_USER_ID_"/>
+        <result property="procDefId" column="PROC_DEF_ID_"/>
+        <result property="procDefKey" column="PROC_DEF_KEY_"/>
+        <result property="procDefName" column="PROC_DEF_NAME_"/>
+        <result property="procInsId" column="PROC_INST_ID_"/>
+        <result property="procStartTime" column="START_TIME_" />
+        <result property="procEndTime" column="END_TIME_"/>
+        <result property="procStatus" column="BUSINESS_STATUS_"/>
+        <result property="procDefVersion" column="VERSION_"/>
+        <result property="deployId" column="DEPLOYMENT_ID_"/>
+    </resultMap>
+    <select id="queryPageOwnProcessList" resultMap="WfTaskInstResultMap">
+
+        SELECT RES.START_USER_ID_,
+               RES.START_TIME_,
+               RES.BUSINESS_STATUS_,
+               ART.NAME_ AS TASK_NAME,
+               ART.PROC_INST_ID_,
+               ART.TASK_DEF_KEY_,
+               DEF.NAME_ AS PROC_DEF_NAME_,
+               DEF.ID_   AS PROC_DEF_ID_,
+               DEF.KEY_  AS PROC_DEF_KEY_,
+               DEF.DEPLOYMENT_ID_
+        FROM act_ru_task ART
+
+                 LEFT JOIN ACT_HI_PROCINST RES
+                           ON RES.PROC_INST_ID_ = ART.PROC_INST_ID_ AND ART.PROC_DEF_ID_ = RES.PROC_DEF_ID_
+                 LEFT JOIN ACT_RE_PROCDEF DEF ON DEF.ID_ = ART.PROC_DEF_ID_
+
+        WHERE RES.START_USER_ID_ = #{startUserId}
+          AND RES.BUSINESS_STATUS_ = 1
+        ORDER BY RES.START_TIME_ DESC
+    </select>
+
+
+</mapper>

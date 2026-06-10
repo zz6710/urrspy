@@ -1,0 +1,282 @@
+{
+    "edges": [
+        {
+            "from": {
+                "field": "age1",
+                "name": "data1"
+            },
+            "to": {
+                "field": "age",
+                "name": "middle1"
+            }
+
+        },
+        {
+            "from": {
+                "field": "name",
+                "name": "data2"
+
+            },
+            "to": {
+                "field": "name",
+                "name": "middle2"
+            }
+
+        },
+        {
+            "from": {
+                "field": "age",
+                "name": "data2"
+            },
+            "to": {
+                "field": "age",
+                "name": "middle2"
+            }
+
+        },
+        {
+            "from": {
+                "field": "grade",
+                "name": "data2"
+            },
+            "to": {
+                "field": "grade",
+                "name": "middle2"
+            }
+
+        },
+        {
+            "from": {
+                "field": "age",
+                "name": "middle1"
+            },
+            "to": {
+                "field": "age",
+                "name": "middle3"
+            }
+
+        },
+        {
+            "from": {
+                "field": "name1",
+                "name": "middle1"
+            },
+            "to": {
+                "field": "name",
+                "name": "middle3"
+            }
+
+        },
+        {
+            "from": {
+                "field": "name",
+                "name": "middle2"
+            },
+            "to": {
+                "field": "name",
+                "name": "middle3"
+            }
+
+        },
+        {
+            "from": {
+                "field": "class",
+                "name": "middle2"
+            },
+            "to": {
+                "field": "class",
+                "name": "middle3"
+            }
+        },
+        {
+            "from": {
+                "field": "class",
+                "name": "middle2"
+            },
+            "to": {
+                "field": "class",
+                "name": "RS"
+            }
+        },
+        {
+            "from": {
+                "field": "grade",
+                "name": "middle2"
+            },
+            "to": {
+                "field": "grade",
+                "name": "middle3"
+            }
+        },
+        {
+            "from": {
+                "field": "name",
+                "name": "middle3"
+            },
+            "to": {
+                "field": "name",
+                "name": "RS"
+            }
+        },
+        {
+            "from": {
+                "field": "age",
+                "name": "middle3"
+            },
+            "to": {
+                "field": "age",
+                "name": "RS"
+            }
+        },
+        {
+            "from": {
+                "field": "grade",
+                "name": "middle3"
+            },
+            "to": {
+                "field": "grade",
+                "name": "RS"
+            }
+        },
+        {
+            "from": {
+                "field": "class",
+                "name": "middle3"
+            },
+            "to": {
+                "field": "class",
+                "name": "RS"
+            }
+        },
+        {
+            "from": {
+                "field": "class",
+                "name": "RS"
+            },
+            "to": {
+                "field": "class",
+                "name": "RS1"
+            }
+        }
+    ],
+    "nodes": [{
+            "name": "data1",
+            "type": "Origin",
+            "fields": [{
+                "name": "age1"
+            }, {
+                "name": "name"
+            }, {
+                "name": "class"
+            }],
+            "top": 20,
+            "left": 20
+        },
+        {
+            "name": "data2",
+            "type": "Origin",
+            "fields": [{
+                    "name": "age"
+                },
+                {
+                    "name": "name"
+                }, {
+                    "name": "grade"
+                }, {
+                    "name": "grade1"
+                }, {
+                    "name": "grade2"
+                }, {
+                    "name": "grade3"
+                }, {
+                    "name": "grade4"
+                }, {
+                    "name": "grade5"
+                }
+            ],
+            "top": 155,
+            "left": 20
+        },
+        {
+            "name": "middle1",
+            "type": "Middle",
+            "fields": [{
+                "name": "age"
+            }, {
+                "name": "name1"
+            }, {
+                "name": "hobby"
+            }],
+            "top": 20,
+            "left": 250
+        },
+        {
+            "name": "middle2",
+            "type": "Middle",
+            "fields": [{
+                    "name": "age"
+                }, {
+                    "name": "name"
+                },
+                {
+                    "name": "class"
+                },
+                {
+                    "name": "grade"
+                }
+            ],
+            "top": 250,
+            "left": 250
+        },
+        {
+            "name": "middle3",
+            "type": "Middle",
+            "fields": [{
+                    "name": "age"
+                }, {
+                    "name": "name"
+                },
+                {
+                    "name": "class"
+                },
+                {
+                    "name": "grade"
+                }
+            ],
+            "top": 200,
+            "left": 480
+        },
+        {
+            "name": "RS",
+            "type": "RS",
+            "fields": [{
+                "name": "age"
+            }, {
+                "name": "name"
+            }, {
+                "name": "class"
+            }, {
+                "name": "grade"
+            }],
+            "top": 200,
+            "left": 710
+        },
+        {
+            "name": "RS1",
+            "type": "RS",
+            "fields": [{
+                "name": "age"
+            }, {
+                "name": "name"
+            }, {
+                "name": "class"
+            }, {
+                "name": "grade"
+            }, {
+                "name": "gender"
+            }],
+            "top": 200,
+            "left": 940
+        }
+    ]
+}

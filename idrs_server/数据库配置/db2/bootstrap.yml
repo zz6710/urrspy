@@ -1,0 +1,43 @@
+#
+#spring:
+#  application:
+#    name: GatewayServer
+#  cloud:
+#    nacos:
+#      discovery:
+#        server-addr: 106.52.245.229:8848
+#        enabled: true
+#      config:
+#        server-addr: 106.52.245.229:8848
+#
+#
+#  main:
+#    allow-bean-definition-overriding: true
+#
+#log:
+#  path:  /data/ta72/kayakwise
+#
+#upload:
+#  path: D://
+
+
+
+
+
+spring:
+  cloud:
+    nacos:
+      config:
+        namespace: 9cb0794d-ca76-4582-b710-7faa014e3ae6
+        server-addr: 106.52.245.229:8848
+        ext-config[0]:
+          data-id: jdbc.yml
+          group: db2
+        ext-config[1]:
+          data-id: common.yml
+          group: db2
+        ext-config[2]:
+          data-id: gateway-app.yml
+          group: db2
+
+

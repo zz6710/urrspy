@@ -1,0 +1,53 @@
+---
+kind: pipeline
+type: docker
+name: default
+
+clone:
+  skip_verify: true
+
+steps:
+  - name: fetch git tags
+    image: prodimg.cebwm.com/repository/prodimg/golang:1.14.4-stretch
+    commands:
+      - git fetch --all --tags
+      - git submodule update --init
+  - name: npm run
+    image: prodimg.cebwm.com/repository/prodimg/node:14.16.0-alpine3.11
+    custom_dns: [ 10.1.20.3, 10.1.20.2 ]
+    commands:
+      - rm -rf package-lock.json
+      - rm -rf node_modules
+      - npm cache clear --force
+      - npm config set registry http://registry.npm.taobao.org
+      - npm config set sass_binary_site https://npm.taobao.org/mirrors/node-sass/
+      - npm install
+    when:
+      event:
+        - tag
+  - name: prep image build
+    image: prodimg.cebwm.com/repository/prodimg/golang:1.14.4-stretch
+    commands:
+      - echo -n `repoman ver` > .tags
+    when:
+      event:
+        - tag
+  - name: dist build
+    image: prodimg.cebwm.com/repository/prodimg/node:14.16.0-alpine3.11
+    commands:
+      - npm run build
+    when:
+      event: tag
+  - name: build docker image
+    image: plugins/docker
+    settings:
+      registry: https://prodimg.cebwm.com
+      repo: prodimg.cebwm.com/repository/prodimg/pmsweb
+      username:
+        from_secret: docker_username
+      password:
+        from_secret: docker_password
+      context: ./
+    when:
+      event:
+        - tag

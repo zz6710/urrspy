@@ -1,0 +1,5 @@
+@mixin set-active-background-color($color){
+ a{
+   color: $color;
+ }
+}

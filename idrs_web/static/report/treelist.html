@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <script type='text/javascript' src="js/binary/dynaload.js"></script>
+  <script type='text/javascript' src="js/forReport.js"></script>
+  <script type='text/javascript' src="../../url-config.js"></script>
+</head>
+<script>
+
+  var baseUrl = getURL().baseUrl;
+  var forTable = getUrlParams("menuid");
+
+  function OnReady(id) {
+    getXmlInfo({
+      baseUrl: baseUrl,
+      forTable: forTable
+    }).then(xml => {
+      AF.func("Build", xml);
+      AF.func("Swkrntpomzqa", getUrlParams("swkrntpomzqa"));
+      merge()
+    })
+  }
+
+  function OnEvent(id, event, p1, p2, p3, p4) {
+  }
+
+  function loadDataEvent(params) {
+    params['menuid'] = forTable;
+    getXmlSql({
+      baseUrl: baseUrl,
+      forTable: forTable
+    }).then(res => {
+      let url = setXmlUrl(baseUrl, res[0].exeid, params);
+      sendRequest({
+        type: "GET",
+        url: url,
+        params: params
+      }).then(res => {
+        AF.func("Load", JSON.stringify(res));
+        merge()
+      })
+    })
+  }
+
+  function merge() {
+    getTreeListTableSort({
+      baseUrl: baseUrl,
+      forTable: forTable
+    }).then(tableSort => {
+      AF.func("mergeSame", "col=" + tableSort);
+    })
+  }
+
+  function hideEvent() {
+    var treelist = document.getElementById("treelistHtml");
+    treelist.style.visibility = "hidden";
+    AF.func("GrayWindow", "true");
+  }
+
+  function showEvent() {
+    var treelist = document.getElementById("treelistHtml");
+    treelist.style.visibility = "visible";
+    AF.func("GrayWindow", "");
+  }
+
+</script>
+<body>
+<div id="treelistHtml" style="position:relative;width:97%">
+  <script>
+    insertTreeList('AF', 'Rebar=Main,Print; Border=single; Ruler=none; PagesTabPercent=0; SeperateBar=Horz; TabScrollBar=outofsize; Main=105;Print=11', window.innerHeight)
+  </script>
+</div>
+</body>
+</html>

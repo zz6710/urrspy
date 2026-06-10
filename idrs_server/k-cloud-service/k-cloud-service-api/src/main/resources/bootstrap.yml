@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: ApiServer
+  #  profiles:
+  #    active: dev
+  cloud:
+    nacos:
+      username: nacos
+      password: nacos
+      config:
+        server-addr: 10.251.161.197:8848
+        #        file-extension: yml
+        ext-config[0]:
+          data-id: jdbc.yml
+          group: hzxp
+          refresh: true
+        ext-config[1]:
+          data-id: common.yml
+          group: hzxp
+          refresh: true
+        namespace: hzxp
+      discovery:
+        server-addr: 10.251.161.197:8848
+        namespace: hzxp_lizs

@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: RptApp
+#  profiles:
+#    active: dev
+  cloud:
+    nacos:
+      username: nacos
+      password: nacos
+      config:
+        server-addr: localhost:8848
+#        file-extension: yml
+        ext-config[0]:
+          data-id: jdbc.yml
+          group: hzxp
+          refresh: true
+        ext-config[1]:
+          data-id: common.yml
+          group: hzxp
+          refresh: true
+        ext-config[2]:
+          data-id: rpt-app.yml
+          group: hzxp
+          refresh: true
+        ext-config[3]:
+          data-id: jimu.yml
+          group: hzxp
+          refresh: true
+        namespace: hzxp
+      discovery:
+        server-addr: localhost:8848
+        namespace: hzxp

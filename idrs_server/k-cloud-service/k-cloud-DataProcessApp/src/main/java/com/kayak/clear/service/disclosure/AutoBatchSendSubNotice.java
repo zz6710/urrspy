@@ -1,0 +1,76 @@
+package com.kayak.clear.service.disclosure;
+
+import com.alibaba.fastjson.JSONObject;
+import com.kayak.base.dao.ComnDao;
+import com.kayak.clear.req.PubReq;
+import com.kayak.clear.resp.PubResp;
+import com.kayak.clear.service.pub.CreateTaskService;
+import com.kayak.server.ServerUtil;
+import com.kayakwise.kcloud.batch.annotation.StepNo;
+import com.kayakwise.kcloud.batch.model.bo.RegistClearTaskPojo;
+import com.kayakwise.kcloud.batch.model.req.TaskRegeditReq;
+import com.kayakwise.kcloud.batch.service.BaseTaskService;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
+import java.util.HashMap;
+import java.util.Map;
+
+
+@Slf4j
+@Component
+@Scope("prototype")
+public class AutoBatchSendSubNotice extends BaseTaskService<PubReq, PubResp> {
+
+    @Autowired
+    public CreateTaskService createTaskService;
+    @Autowired
+    public ComnDao comnDao;
+
+    String workDate = "";
+
+    @Override
+    protected void doCheckParams(PubReq request) throws Exception {
+        log.info(" ###### 参数校验 ");
+    }
+
+    @Override
+    protected void doCheckBusiness(PubReq request) throws Exception {
+        log.info(" ###### 业务校验 ");
+    }
+
+    @Override
+    protected RegistClearTaskPojo taskRegist(TaskRegeditReq taskRegeditReq) throws Exception {
+        log.info(" ###### 任务注册");
+        return createTaskService.createSystemTask(taskRegeditReq);
+    }
+
+    /**
+     * 数据验证
+     */
+    protected void dataModeCheck(PubReq request) throws Exception{
+        log.info("---------- 任务: " + request.getTaskId() +" 数据验证开始 Start -----------");
+
+
+        log.info("---------- 任务: " + request.getTaskId() +" 数据验证结束 End-----------");
+    }
+    /**
+    * @功能描述:自动批量发布申购赎回公告
+    */
+    @StepNo(stepNo = 1)
+    protected void autoBatchSendSubNotice(PubReq request) throws Exception{
+        log.info("---------- 任务: " + request.getTaskId() +" 申购赎回公告自动批量发布 Start -----------");
+        Map<String, Object> param = new HashMap<String, Object>();
+        param.put("disclosureType","13");
+        Object body=ServerUtil.requestPost("PmsApp", "com.kayak.pms.disclosureControl.model.DisclosureNotice", "batchSendNotice", param);
+        Map map = JSONObject.parseObject(JSONObject.toJSONString(body),Map.class) ;
+        if (map.get("success").toString().equals("false"))
+            throw new Exception(map.get("returnmsg").toString());
+
+
+        log.info("---------- 任务: " + request.getTaskId() +" 申购赎回公告自动批量发布 End-----------");
+    }
+
+}

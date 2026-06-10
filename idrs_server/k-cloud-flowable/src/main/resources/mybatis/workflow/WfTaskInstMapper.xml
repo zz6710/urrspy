@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kayak.web.workflow.mapper.WfTaskInstMapper">
+
+    <resultMap type="com.kayak.web.workflow.domain.vo.WfTaskVo" id="WfTaskInstResult">
+        <result property="taskId" column="TASK_ID"/>
+        <result property="taskName" column="TASK_NAME"/>
+        <result property="taskDefKey" column="TASK_DEF_KEY_"/>
+        <result property="assigneeId" column="ASSIGNEE_"/>
+        <result property="startUserId" column="START_USER_ID_"/>
+        <result property="procDefId" column="PROC_DEF_ID_"/>
+        <result property="procDefKey" column="PROC_DEF_KEY_"/>
+        <result property="procDefName" column="PROC_DEF_NAME_"/>
+        <result property="procInsId" column="PROC_INST_ID_"/>
+        <result property="procStartTime" column="START_TIME_"/>
+        <result property="procEndTime" column="END_TIME_"/>
+        <result property="procStatus" column="BUSINESS_STATUS_"/>
+        <result property="procDefVersion" column="VERSION_"/>
+        <result property="deployId" column="DEPLOYMENT_ID_"/>
+    </resultMap>
+    
+    <select id="queryPageFinishedProcessList" resultMap="WfTaskInstResult">
+        SELECT RES.PROC_INST_ID_ ,RES.START_TIME_ ,RES.END_TIME_ ,RES.BUSINESS_STATUS_ ,RES.START_USER_ID_ ,RES.PROC_DEF_ID_,
+        DEF.KEY_ as PROC_DEF_KEY_, DEF.NAME_ as PROC_DEF_NAME_,DEF.VERSION_,TASK.ASSIGNEE_,
+        TASK.NAME_ as TASK_NAME,TASK.TASK_DEF_KEY_,TASK.ID_ as TASK_ID
+        from ACT_HI_TASKINST TASK
+        inner join ACT_HI_PROCINST RES on TASK.PROC_INST_ID_ = RES.PROC_INST_ID_
+        left join ACT_RE_PROCDEF DEF on RES.PROC_DEF_ID_ = DEF.ID_
+        left join flow_busi_info bu on bu.process_instance_id = RES.PROC_INST_ID_
+        ${ew.getCustomSqlSegment}
+    </select>
+    
+    <select id="queryPageOwnProcessList" resultMap="WfTaskInstResult">
+        SELECT RES.PROC_INST_ID_ ,RES.START_TIME_ ,RES.END_TIME_ ,RES.BUSINESS_STATUS_ ,RES.START_USER_ID_ ,RES.PROC_DEF_ID_,
+        DEF.KEY_ as PROC_DEF_KEY_, DEF.NAME_ as PROC_DEF_NAME_,DEF.VERSION_,DEF.DEPLOYMENT_ID_
+        from ACT_HI_PROCINST RES
+        left outer join ACT_RE_PROCDEF DEF on RES.PROC_DEF_ID_ = DEF.ID_
+        left join flow_busi_info bu on bu.process_instance_id = RES.PROC_INST_ID_
+        ${ew.getCustomSqlSegment}
+    </select>
+    
+    <select id="queryHistoryTaskList" resultType="com.kayak.web.workflow.domain.vo.WfTaskVo">
+        select t.task_id_ as taskId,t.act_id_ as taskDefKey,t.act_name_ as taskName,t.MESSAGE_ as message,t.TYPE_ as messageType,t.TIME_ as messageTime
+        ,t.USER_ID_ as messageUserId,t.ASSIGNEE_ as assigneeId ,t.START_TIME_ as createTime,t.END_TIME_ as finishTime
+        from (
+            <!--查询已完成的任务以及有审批意见的任务 -->
+            select actinst.task_id_,actinst.act_id_,actinst.act_name_,comment.MESSAGE_,comment.TYPE_,comment.USER_ID_ ,actinst.ASSIGNEE_ ,actinst.START_TIME_ ,actinst.END_TIME_,actinst.act_type_,comment.TIME_
+            from act_hi_actinst actinst
+            left join ACT_HI_COMMENT comment on comment.TASK_ID_ = actinst.TASK_ID_  and comment.ACTION_ ='AddComment'
+            where actinst.PROC_INST_ID_ = #{procInsId} and (actinst.END_TIME_ is not null or comment.ID_ is not null)
+            union all
+            <!--查询未完成的任务 -->
+            select actinst.task_id_,actinst.act_id_,actinst.act_name_,'','',actinst.ASSIGNEE_,actinst.ASSIGNEE_ ,actinst.START_TIME_ ,actinst.END_TIME_,actinst.act_type_,#{defaultDate}
+            from act_hi_actinst actinst
+            where actinst.END_TIME_ is null and actinst.PROC_INST_ID_ = #{procInsId}
+        ) t
+        where t.act_type_ in
+        <foreach collection="taskTypes" item="type" open="(" separator="," close=")">
+            #{type}
+        </foreach>
+        order by t.START_TIME_ ,t.END_TIME_ ,t.TIME_
+    </select>
+</mapper>

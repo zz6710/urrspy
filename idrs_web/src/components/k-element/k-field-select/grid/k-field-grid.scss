@@ -1,0 +1,22 @@
+.el-select__tags {
+  position: absolute;
+  line-height: normal;
+  white-space: normal;
+  z-index: 1;
+  top: 2px !important;
+  /* -webkit-transform: translateY(-50%); */
+   transform: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+::v-deep .el-input__suffix{
+  display: flex;
+  align-items: center;
+}

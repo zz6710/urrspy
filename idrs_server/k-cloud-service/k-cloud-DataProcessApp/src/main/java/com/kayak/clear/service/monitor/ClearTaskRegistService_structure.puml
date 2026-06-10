@@ -1,0 +1,291 @@
+@startuml
+
+/' diagram meta data start
+config=StructureConfiguration;
+{
+  "projectClassification": {
+    "searchMode": "OpenProject", // OpenProject, AllProjects
+    "includedProjects": "",
+    "pathEndKeywords": "*.impl",
+    "isClientPath": "",
+    "isClientName": "",
+    "isTestPath": "",
+    "isTestName": "",
+    "isMappingPath": "",
+    "isMappingName": "",
+    "isDataAccessPath": "",
+    "isDataAccessName": "",
+    "isDataStructurePath": "",
+    "isDataStructureName": "",
+    "isInterfaceStructuresPath": "",
+    "isInterfaceStructuresName": "",
+    "isEntryPointPath": "",
+    "isEntryPointName": "",
+    "treatFinalFieldsAsMandatory": false
+  },
+  "graphRestriction": {
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "removeByInheritance": "", // inheritance/annotation based filtering is done in a second step
+    "removeByAnnotation": "",
+    "removeByClassPackage": "", // cleanup the graph after inheritance/annotation based filtering is done
+    "removeByClassName": "",
+    "cutMappings": false,
+    "cutEnum": true,
+    "cutTests": true,
+    "cutClient": true,
+    "cutDataAccess": false,
+    "cutInterfaceStructures": false,
+    "cutDataStructures": false,
+    "cutGetterAndSetter": true,
+    "cutConstructors": true
+  },
+  "graphTraversal": {
+    "forwardDepth": 6,
+    "backwardDepth": 6,
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "hideMappings": false,
+    "hideDataStructures": false,
+    "hidePrivateMethods": true,
+    "hideInterfaceCalls": true, // indirection: implementation -> interface (is hidden) -> implementation
+    "onlyShowApplicationEntryPoints": false, // root node is included
+    "useMethodCallsForStructureDiagram": "ForwardOnly" // ForwardOnly, BothDirections, No
+  },
+  "details": {
+    "aggregation": "GroupByClass", // ByClass, GroupByClass, None
+    "showClassGenericTypes": true,
+    "showMethods": true,
+    "showMethodParameterNames": true,
+    "showMethodParameterTypes": true,
+    "showMethodReturnType": true,
+    "showPackageLevels": 2,
+    "showDetailedClassStructure": true
+  },
+  "rootClass": "com.kayak.clear.service.monitor.ClearTaskRegistService",
+  "extensionCallbackMethod": "" // qualified.class.name#methodName - signature: public static String method(String)
+}
+diagram meta data end '/
+
+
+
+digraph g {
+    rankdir="TB"
+    splines=polyline
+    
+
+'nodes 
+subgraph cluster_101825869 { 
+   	label=kayak
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   subgraph cluster_1401654676 { 
+   	label=clear
+	labeljust=l
+	fillcolor="#d8d8d8"
+	style=filled
+   
+   ClearTaskRegistService263290702[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)ClearTaskRegistService</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   applicationContext: ApplicationContext [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   batchSequenceService: BatchSequenceService [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   clearTaskInfoMap: Map&lt;String, KbatchClearTaskInfoDto&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   dbop: Dbop [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   existsExecMap: Map&lt;String, KbatchTaskExec&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   existsTaskExecDisplay: Map&lt;String, TaClearTaskExecDisplay&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   groupInfoMap: Map&lt;String, KbatchGroupInfo&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   insertExecDisplayParamsList: List&lt;ParamMap&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   log: Logger [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   regeditRequest: TaskRegeditReq [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   serviceCollection: Map&lt;String, BaseTaskService&lt;BatchTaskRequest, BatchTaskResponse&gt;&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   sysClearTaskInfos: List&lt;KbatchClearTaskInfoDto&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   taskExecParamsList: List&lt;ParamMap&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   taskExecStepParamsList: List&lt;ParamMap&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   unFinishGroupSet: Set&lt;String&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   unFinishTaskSet: Set&lt;String&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   updateExecDisplayParamsList: List&lt;ParamMap&gt; [0..*]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >- checkPreTask(taskExec: KbatchTaskExec, unFinishGroupSet: Set&lt;String&gt;): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >- checkReturnTaskExec(registClearTaskPojo: RegistClearTaskPojo, taskInfo: KbatchClearTaskInfoDto, taskRegeditReq: TaskRegeditReq, prodCode: String, distributorCode: String): KbatchTaskExec</TD></TR>
+<TR><TD ALIGN="LEFT" >- converTaskExecDisplayObj(row: SqlRow): TaClearTaskExecDisplay</TD></TR>
+<TR><TD ALIGN="LEFT" >- converTaskExecObj(row: SqlRow): KbatchTaskExec</TD></TR>
+<TR><TD ALIGN="LEFT" >+ createClearTaskParams(taskExec: KbatchTaskExec, taskStepExecList: List&lt;KbatchTaskStepExec&gt;, execId: String, setExecStatus: String)</TD></TR>
+<TR><TD ALIGN="LEFT" >- createSysTask()</TD></TR>
+<TR><TD ALIGN="LEFT" >- doInit()</TD></TR>
+<TR><TD ALIGN="LEFT" >- getClearTaskService(taskId: String, serviceClass: String): BaseTaskService&lt;BatchTaskRequest, BatchTaskResponse&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >- getGroupInfoList(sqlResult: SqlResult): List&lt;KbatchGroupInfo&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >- getTaskExecs(sResult: SqlResult): List&lt;KbatchTaskExec&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >- getTaskInfoList(sResult: SqlResult): List&lt;KbatchClearTaskInfoDto&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >- initTaskExecDisplayParam(taskExec: KbatchTaskExec, taskRegeditReq: TaskRegeditReq, isExec: String, execId: String): ParamMap</TD></TR>
+<TR><TD ALIGN="LEFT" >- insertExecAndDisplay(regBatchTaskPojo: RegistClearTaskPojo, taskRegtReq: TaskRegeditReq, taBatchTaskInfo: KbatchClearTaskInfoDto, prodCode: String, targetCode: String)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ registProcess()</TD></TR>
+<TR><TD ALIGN="LEFT" >- taskBatchSave()</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+ClearTaskRegistUtil263290702[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)ClearTaskRegistUtil</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ getMapKey(taskType: String, taskGroup: String, taskId: String, prodCode: String, targetCode: String): String</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getSysExecKey(taskGroup: String, taskId: String): String</TD></TR>
+<TR><TD ALIGN="LEFT" >+ initTaskSet(taskExec: KbatchTaskExec, taskSet: Set&lt;String&gt;): Set&lt;String&gt;</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+DateUtils466414718[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)DateUtils</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ formatDate(date: String, format: String): Date</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getAge(birthday: String, now_date: String): int</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getBetweenDays(startDate: String, endDate: String): int</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getBrithdayByIdCode(id_code: String): String</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getDateAddDays(srcDate: String, days: int): String</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getDateAddMonths(srcDate: String, months: int): String</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getDateAddYears(srcDate: String, years: int): String</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getDateFormat(date: Date): String</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getDateFormat(date: Date, formatStr: String): String</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getDateFormat(date: String): Date</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getDateTimeFormat(date: Date): String</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getDateTimeFormat(date: String): Date</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getDayAfter(date: Date): Date</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getDayBefore(date: Date): Date</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getEveryDay(startDate: Date, endDate: Date): List&lt;Date&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getFirstDayOfMonth(workdate: String): String</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getFirstDayOfMonth(date: Date): Date</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getFirstDayOfWeek(date: Date): Date</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getFirstMonth(monty: int): Date</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getLastDayOfMonth(date: Date): Date</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getLastDayOfMonth(workdate: String): String</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getLastDayOfWeek(date: Date): Date</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getTimeFormat(date: Date): String</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+KbatchClearTaskInfoDto1134692592[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)KbatchClearTaskInfoDto</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   alarmTime: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   canAgain: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   execOrder: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   inClass: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   moduleid: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   preTaskId: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   reqClass: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   runningType: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   serviceClass: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   shouldExecTime: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   simpleFlow: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   taskGroup: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   taskId: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   taskName: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   taskParams: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   taskType: String [0..1]</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+Tools466414718[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Tools</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+ alignRight(str: String, size: int, padStr: String): String</TD></TR>
+<TR><TD ALIGN="LEFT" >+ applyObject(targetObj: Object, obj: Object, coverflag: Boolean): Object</TD></TR>
+<TR><TD ALIGN="LEFT" >+ changeVol(appAmt: BigDecimal, precisionProcess: String): BigDecimal</TD></TR>
+<TR><TD ALIGN="LEFT" >+ chkUnLimited(obj: Object): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ compare2Values(firstValue: Long, secondValue: Long): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ compare2Values(obj1: Object, obj2: Object): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ dateAdd(date: Date, amount: int): Date</TD></TR>
+<TR><TD ALIGN="LEFT" >+ dateAdd(dateStr: String, amount: int): String</TD></TR>
+<TR><TD ALIGN="LEFT" >+ dateAddMonth(date: Date, amount: int): Date</TD></TR>
+<TR><TD ALIGN="LEFT" >+ dbRemainder(divisor: BigDecimal, stepApply: BigDecimal): BigDecimal</TD></TR>
+<TR><TD ALIGN="LEFT" >+ dt2currHourMin(date: Date): String</TD></TR>
+<TR><TD ALIGN="LEFT" >+ dt2currtime(date: Date): String</TD></TR>
+<TR><TD ALIGN="LEFT" >+ dt2date(date: Date): String</TD></TR>
+<TR><TD ALIGN="LEFT" >+ dt2time(date: Date): String</TD></TR>
+<TR><TD ALIGN="LEFT" >- findGetterMethod(o: Object, field_name: String): Method</TD></TR>
+<TR><TD ALIGN="LEFT" >- findGetterMethod(o: Object, field_class: Class&lt;?&gt;): Method</TD></TR>
+<TR><TD ALIGN="LEFT" >+ genFileSerno(): String</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getAddTime(date: Date, field: int, amount: int): Date</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getCustomAgeByBrithday(currday: Date, brithday: Date): Integer</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getCustomAgeByBrithday(brithday: String): Integer</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getIdCode15(idCode: String): String</TD></TR>
+<TR><TD ALIGN="LEFT" >+ getObjectValue(map: Map&lt;String, Object&gt;, key: String): String</TD></TR>
+<TR><TD ALIGN="LEFT" >+ invokeFieldValue(o: Object, field_name: String): T</TD></TR>
+<TR><TD ALIGN="LEFT" >+ invokeFieldValue(o: Object, field_class: Class&lt;T&gt;): T</TD></TR>
+<TR><TD ALIGN="LEFT" >+ isBlank(str: String): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ isMatch(regex: String, orginal: String): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ isNotBlank(str: String): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ isObjBlank(obj: Object): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ isObjNotBlank(obj: Object): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ mergeData(AllSubsDataList: List&lt;SqlRow&gt;, keyList: List&lt;String&gt;, addKeyList: List&lt;String&gt;, otherKeyList: List&lt;String&gt;, clazz: Class&lt;T&gt;): List&lt;T&gt;</TD></TR>
+<TR><TD ALIGN="LEFT" >+ numToString(num: int, length: Integer): String</TD></TR>
+<TR><TD ALIGN="LEFT" >+ nvlBigDecimal(object: Object, bigDecimal: BigDecimal): BigDecimal</TD></TR>
+<TR><TD ALIGN="LEFT" >+ obj2BigDecimal(obj: Object): BigDecimal</TD></TR>
+<TR><TD ALIGN="LEFT" >+ obj2Long(obj: Object): Long</TD></TR>
+<TR><TD ALIGN="LEFT" >+ obj2Long(obj: Object, isDefault: boolean): Long</TD></TR>
+<TR><TD ALIGN="LEFT" >+ obj2Str(obj: Object): String</TD></TR>
+<TR><TD ALIGN="LEFT" >+ objIsEmpty(object: Object): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ objIsNotEmpty(object: Object): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ padLeft(num: long, digit: int): String</TD></TR>
+<TR><TD ALIGN="LEFT" >+ padRight(str: String, digit: int): String</TD></TR>
+<TR><TD ALIGN="LEFT" >+ pojoToHashMap(map: Map&lt;String, String&gt;, object: Object)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ str2BigDecimal(str: String): BigDecimal</TD></TR>
+<TR><TD ALIGN="LEFT" >+ str2BigDecimal2(str: String): BigDecimal</TD></TR>
+<TR><TD ALIGN="LEFT" >+ str2Double(str: String): Double</TD></TR>
+<TR><TD ALIGN="LEFT" >+ str2Dt1(date: String): Date</TD></TR>
+<TR><TD ALIGN="LEFT" >+ str2Long(str: String): Long</TD></TR>
+<TR><TD ALIGN="LEFT" >+ str2boolean(str: String): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ str2int(s: String): int</TD></TR>
+<TR><TD ALIGN="LEFT" >+ strIsEmpty(str: String): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ strIsNotEmpty(str: String): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ strIsNumber(str: String): boolean</TD></TR>
+<TR><TD ALIGN="LEFT" >+ trimString(string: String): String</TD></TR>
+<TR><TD ALIGN="LEFT" >+ trimString(obj: Object): String</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+} 
+
+'edges    
+ClearTaskRegistService263290702 -> KbatchClearTaskInfoDto1134692592[label="clearTaskInfoMap
+[0..*]"];
+ClearTaskRegistService263290702 -> KbatchClearTaskInfoDto1134692592[label="sysClearTaskInfos
+[0..*]"];
+DateUtils466414718 -> Tools466414718[label="getBrithdayByIdCode() -> isBlank()"];
+    
+}
+@enduml

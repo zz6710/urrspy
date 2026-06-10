@@ -1,0 +1,87 @@
+.k-material-from-item input{
+  border: none !important;
+  background: none !important;
+  padding: 0 !important;
+}
+
+.k-material-from-item .el-icon-time{
+	display: none;
+}
+
+/* WebKit浏览器 */
+.md-field input::-webkit-input-placeholder { color:#999; }
+
+/* Firefox 4 至 18 */
+.md-field input::-moz-placeholder { color:#999; }
+
+/* Firefox 19+ */
+.md-field input::-moz-placeholder { color:#999; }
+
+/* IE 10+ */
+.md-field input:-ms-input-placeholder { color:#999; }
+
+.md-field.md-focused label, .md-field.md-has-value label, .md-field.md-focused.md-has-value label{
+  font-size: 12px !important;
+}
+
+.el-checkbox-group label{
+  position: relative !important;
+}
+.el-radio-group label{
+  position: relative !important;
+}
+
+.k-from-horizontal-label{
+  padding: 18px 5px 0 0;
+  text-align: right;
+  font-weight: 400;
+  color: #aaa;
+}
+
+.md-field .el-date-editor.el-input, .el-date-editor.el-input__inner{
+  width: 230px;
+}
+
+.md-field .el-cascader{
+  width: 100%;
+}
+
+.md-field .el-select{
+  width: 100%;
+}
+
+.k-material-from-item .md-clear{
+  margin-top: -4px;
+}
+
+.k-material-from-item .md-error{
+  bottom: -10px;
+}
+
+.el-form-item__label{
+  font-weight: 400;
+  color: #aaa;
+}
+
+.md-field input, .md-field textarea{
+	font-size: 14px !important;
+}
+
+.md-hide-border.md-field:after, .md-hide-border.md-field:before{
+  display: none;
+}
+
+.md-hide-border{
+  display: flex;
+  align-items: center;
+}
+
+.md-field{
+  .el-select{
+    .el-input{
+      input{
+        padding-right: 40px !important;
+      }
+    }
+  }
+}

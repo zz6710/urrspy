@@ -1,0 +1,12 @@
+<?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg t="1591771895543" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+     p-id="26447" xmlns:xlink="http://www.w3.org/1999/xlink" width="128" height="128">
+  <title>恢复</title>
+  <defs>
+    <style type="text/css"></style>
+  </defs>
+  <path
+    d="M512 0c282.768291 0 512 229.231709 512 512s-229.231709 512-512 512S0 794.768291 0 512 229.231709 0 512 0z m274.962618 522.021236a9.309091 9.309091 0 0 0 0-15.387927L389.241018 235.659636a9.309091 9.309091 0 0 0-14.550109 7.693964v541.947345a9.309091 9.309091 0 0 0 14.550109 7.693964l397.7216-270.973673z"
+    fill="#41A0EB" p-id="26448"></path>
+</svg>

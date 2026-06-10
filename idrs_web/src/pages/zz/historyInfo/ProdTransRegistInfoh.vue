@@ -1,0 +1,79 @@
+<template>
+  <div class="py-page">
+     <div>
+        <k-form-search-customize data-model-name="ProdTransRegistInfoh" data-target="ProdTransRegistInfohGrid" data-label-width="130px" v-model = "searchParam">
+               <k-form-item label="产品登记编码" data-label-width="100px">
+                  <k-field-text v-model="searchParam.prodCode"/>
+               </k-form-item>
+                <k-form-item label="业务登记日期" data-label-width="100px">
+                  <k-field-date v-model="RegisterDate" data-type="daterange" data-date-format="yyyyMMdd" data-value-format="yyyyMMdd"/>
+                </k-form-item>
+               <k-form-item label="行内资产/负债编码">
+                  <k-field-text v-model="searchParam.assetCode"/>
+               </k-form-item>
+            </k-form-search-customize>
+     </div>
+    <div class="py-page-container">
+      <k-grid ref="ProdTransRegistInfohGrid" @data-row-select="selectRow" data-operate-column="false" data-action="ProdTransRegistInfoh.findProdTransRegistInfos" >
+		<k-grid-column data-align="left" data-header="报送状态" data-name="registerStatus" data-dict="subm_report_status" data-export="false" data-width="100"></k-grid-column>
+        <k-grid-column data-align="left" data-header="id" data-name="id" :data-hidden="true" data-export="false"></k-grid-column>
+        <k-grid-column data-align="left" data-header="产品登记编码" data-name="prodCode"  data-width="120"></k-grid-column>
+        <k-grid-column data-align="left" data-header="发行机构代码" data-name="bankCode"  data-width="120"></k-grid-column>
+        <k-grid-column data-align="left" data-header="行内资产/负债编码" data-name="assetCode"  data-width="160"></k-grid-column>
+        <k-grid-column data-align="left" data-header="行内交易编码" data-name="transCode"  data-width="160"></k-grid-column>
+        <k-grid-column data-align="left" data-header="资金流动类型" data-name="cashType" data-dict="subm_cash_type"  data-width="160"></k-grid-column>
+        <k-grid-column data-align="left" data-header="资金流动类型说明" data-name="detailCashType"  data-width="150"></k-grid-column>
+        <k-grid-column data-align="right" data-header="数量" data-name="quantity"  data-width="120"></k-grid-column>
+        <k-grid-column data-align="left" data-header="资产计量方式" data-name="methodAssetMeasure" data-dict="subm_asset_measure"  data-width="120"></k-grid-column>
+        <k-grid-column data-align="left" data-header="币种" data-name="cur" data-dict="subm_t8_prod_currtype_more"  data-width="120"></k-grid-column>
+        <k-grid-column data-align="right" data-header="折算人民币金额" data-name="convertRmb" data-type="money"  data-width="120"></k-grid-column>
+        <k-grid-column data-align="right" data-header="发生金额" data-name="amt" data-type="money"  data-width="120"></k-grid-column>
+        <k-grid-column data-align="right" data-header="单位成交价格(净价)" data-name="unitPriceNet"  data-width="120"></k-grid-column>
+        <k-grid-column data-align="right" data-header="单位成交价格(全价)" data-name="unitPriceFull"  data-width="120"></k-grid-column>
+        <k-grid-column data-align="right" data-header="到期收益率%" data-name="rateAnnualReturn"  data-width="120"></k-grid-column>
+        <k-grid-column data-align="left" data-header="交易对手方" data-name="tradeCounter"  data-width="250"></k-grid-column>
+        <k-grid-column data-align="left" data-header="关联交易情况" data-name="relatedPartyTrans" data-dict="subm_related_party_trans"  data-width="200"></k-grid-column>
+        <k-grid-column data-align="left" data-header="交易对手方类型" data-name="counterType" data-dict="subm_counterparty_type"  data-width="160"></k-grid-column>
+        <k-grid-column data-align="left" data-header="成交编号/合同号" data-name="transIdentCode"  data-width="160"></k-grid-column>
+        <k-grid-column data-align="left" data-header="交易审批人身份证号" data-name="transApproveId"  data-width="160"></k-grid-column>
+        <k-grid-column data-align="left" data-header="交易审批人姓名" data-name="transApproveName"  data-width="120"></k-grid-column>
+        <k-grid-column data-align="left" data-header="交易员身份证号" data-name="traderId"  data-width="160"></k-grid-column>
+        <k-grid-column data-align="left" data-header="交易员姓名" data-name="traderName"  data-width="120"></k-grid-column>
+        <k-grid-column data-align="left" data-header="交易日" data-name="tradeDate"  data-width="120"></k-grid-column>
+        <k-grid-column data-align="left" data-header="交易发起时间" data-name="trxTm"  data-width="150"></k-grid-column>
+        <k-grid-column data-align="left" data-header="备注" data-name="details"  data-width="120"></k-grid-column>
+        <k-grid-column data-align="left" data-header="登记流水号" data-name="registerSerno" data-width="250" data-export="false"></k-grid-column>
+        <k-grid-column data-align="left" data-header="登记日期" data-name="registerDate" data-width="100" data-export="false" ></k-grid-column>
+        <k-grid-column data-align="left" data-header="新增日期" data-name="createDate" data-width="100" data-export="false" ></k-grid-column>
+      </k-grid>
+    </div>
+
+  </div>
+</template>
+
+<script>
+export default {
+  name: "ProdTransRegistInfoh",
+  data() {
+    return {
+      formData: {},
+      selectRowData: {},
+      searchParam:{},
+      RegisterDate:[]
+    };
+  },
+  methods: {
+    selectRow(row, column, event) {
+      this.selectRowData = Object.assign({}, row)
+      this.formData = Object.assign({}, row)
+    }
+  },
+  watch: {
+    //查询起息日
+    RegisterDate() {
+      this.$set(this.searchParam, 'startDate', this.RegisterDate == null ? '' : this.RegisterDate[0]);
+      this.$set(this.searchParam, 'endDate', this.RegisterDate == null ? '' : this.RegisterDate[1]);
+    },
+  }
+};
+</script>

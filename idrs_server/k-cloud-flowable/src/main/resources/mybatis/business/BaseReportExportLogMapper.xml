@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kayak.web.business.mapper.BaseReportExportLogMapper">
+
+    <resultMap type="com.kayak.web.business.domain.BaseReportExportLog" id="WfBusiConfigResult">
+        <result property="id" column="id"/>
+        <result property="userid" column="userid"/>
+        <result property="reportId" column="report_id"/>
+        <result property="reportName" column="report_name"/>
+        <result property="applyTime" column="apply_time"/>
+        <result property="dataTime" column="data_time"/>
+        <result property="dataStatus" column="data_status"/>
+        <result property="processInstanceId" column="process_instance_id"/>
+        <result property="filePath" column="file_path"/>
+        <result property="fileStatus" column="file_status"/>
+    </resultMap>
+
+    <select id="selectByProcessInstanceId" resultMap="WfBusiConfigResult">
+        select
+        id,userid,report_id,apply_time,data_time,data_status,process_instance_id,create_by,create_time,update_by,update_time,report_name,file_path,file_status
+        FROM base_report_export_log
+        where process_instance_id = #{processInstanceId}
+    </select>
+
+</mapper>

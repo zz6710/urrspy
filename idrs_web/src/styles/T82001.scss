@@ -1,0 +1,42 @@
+::v-deep #ta2001Grid > div:first-child{
+  box-shadow: none;
+}
+
+::v-deep #ta2001Grid > div:first-child > div:first-child{
+  display: none;
+}
+
+.query-div{
+  margin-bottom: -36px;
+}
+
+::v-deep .query-div .k-form-body{
+  margin-left: auto;
+}
+
+.add-btn-div{
+  margin: -90px 0 63px 108px;
+  position: relative;
+  z-index: 1;
+}
+
+.add-btn-div-29{
+  margin: -29px 0 0 108px;
+  position: relative;
+  z-index: 1;
+}
+
+
+.add-btn{
+  background-color: #4caf50;
+  border-radius: 20px;
+  box-shadow: 0 4px 5px 0 rgba(76,175,80,0.14), 0 1px 10px 0 rgba(76,175,80,0.12), 0 2px 4px -1px rgba(76,175,80,0.2);
+  width: 20px;
+  height: 20px;
+  line-height: 20.5px;
+  font-size: 23px;
+  font-weight: 400;
+  cursor: pointer;
+  color: #FFF;
+  text-align: center;
+}

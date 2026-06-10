@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kayak.web.workflow.mapper.WfBusConfigMapper">
+
+    <resultMap type="com.kayak.web.workflow.domain.WfBusConfig" id="WfBusiConfigResult">
+        <result property="server" column="server"/>
+        <result property="processKey" column="process_key"/>
+        <result property="busKeys" column="bus_keys"/>
+        <result property="busName" column="bus_name"/>
+        <result property="status" column="status"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+    
+    <select id="queryPageList" resultType="com.kayak.web.workflow.domain.vo.WfBusConfigVo">
+        select
+        DISTINCT t.status,t.server,t.process_key as processKey,t.bus_keys as busKeys,t.bus_name as busName,s.server_desc as serverDesc,p.NAME_ as processName
+        FROM flow_busi_config t
+        LEFT JOIN sys_server_method s ON t.server=s.server
+        LEFT JOIN (select * from act_re_procdef where (KEY_,version_) in (select KEY_,max(version_) version_ from act_re_procdef  group by  KEY_)) p  ON t.process_key=p.KEY_
+        ${ew.getCustomSqlSegment}
+    </select>
+</mapper>

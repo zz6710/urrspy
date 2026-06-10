@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: PmsApp
+  #  profiles:
+  #    active: dev
+  cloud:
+    nacos:
+      username: nacos
+      password: nacos
+      config:
+        #配置中心地址
+        server-addr: 127.0.0.1:8848
+        #        file-extension: yml
+        ext-config[0]:
+          data-id: jdbc.yml
+          group: hzxp
+          refresh: true
+        ext-config[1]:
+          data-id: common.yml
+          #group和nacos保持一致
+          group: hzxp
+          refresh: true
+        ext-config[2]:
+          data-id: pms-app.yml
+          group: hzxp
+          refresh: true
+        namespace: hzxp
+      discovery:
+        #注册中心地址
+        server-addr: 127.0.0.1:8848
+        #命令空间和nacos保持一致
+        namespace: hzxp

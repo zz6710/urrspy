@@ -1,0 +1,592 @@
+ // 改页面禁止外部滚动条
+  // .k-work-content{
+  //   overflow: hidden;
+  // }
+
+  .k-work-content{
+    overflow: hidden !important;
+}
+
+
+.prod-container{
+  display: flex;
+  flex-direction: row;
+  background: #FFFFFF;
+  margin-top: -20px;
+  padding-top: 30px;
+}
+
+.menu-container {
+  display: flex;
+  position: fixed;
+}
+
+.el-divider--vertical {
+  width: 1px;
+  height: 700px;
+  margin-left: 20px;
+}
+
+
+.menu-list {
+  padding-left: 7px;
+  min-width: 100px;
+  position: absolute;
+}
+
+.md-message-line{
+  border-left: 1px solid #EEEEEE;
+  border-right: 1px solid #EEEEEE;
+  min-height: calc(100vh - 135px);
+  width: 120px;
+  position: absolute;
+  margin-left: 20px;
+  line-height: 1px;
+  font-size: 1px;
+}
+
+
+::v-deep .menu-list svg{
+  width: 26px;
+  height: 26px;
+}
+::v-deep .menu-container i {
+  margin-left: 3px !important;
+  width: 24px !important;
+  height: 30px !important;
+}
+
+.menu {
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  align-items: center;
+  margin-bottom: 1px;
+}
+
+.icon-container {
+  margin-left: -22px;
+  z-index: 100;
+  margin-right: 15px;
+}
+
+.desc-container {
+  height: 40px;
+  width: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.desc {
+  font-family: PingFangSC-Regular;
+  font-size: 12px;
+  letter-spacing: 0;
+  line-height: 27px;
+}
+
+.share-item {
+  position: fixed;
+  right: 40px;
+  z-index: 300;
+  width: 300px;
+  height: 52px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #FFFFFF;
+  box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.14);
+  border-radius: 26px 0px 0px 26px;
+}
+
+.share-container {
+  position: fixed;
+  display: flex;
+  top: 110px;
+  right: 32px;
+  z-index: 300;
+  width: 200px;
+//  width: 100px;
+  height: 52px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #FFFFFF;
+  box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.14);
+  border-radius: 26px 0px 0px 26px;
+}
+
+
+ .share-containerAdd {
+   position: fixed;
+   display: flex;
+   top: 110px;
+   right: 32px;
+   z-index: 300;
+   width: 100px;
+   height: 52px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   background: #FFFFFF;
+   box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.14);
+   border-radius: 26px 0px 0px 26px;
+ }
+
+
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  margin-right: 320px;
+}
+
+.form-item {
+  display: flex;
+  flex-direction: column;
+  margin-left: 40px;
+  margin-bottom: 25px;
+  margin-top: 25px;
+}
+
+.display-flex {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.md-card .md-card-header.md-card-header-icon .title, .md-card .md-card-header.md-card-header-text .title {
+  color: #3c4858;
+  margin-top: 0px;
+}
+
+.title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 0px;
+}
+
+.title-desc {
+  font-family: PingFangSC-Semibold;
+  font-size: 16px;
+  color: #3B4858;
+  letter-spacing: 0;
+  margin-left: 5px;
+  font-weight: 500;
+}
+
+::v-deep .prod-panel > div > form > div.k-form-body{
+  margin-left: -10px;
+  max-height: none !important;
+  width: 100%;
+}
+
+.my-form {
+  margin-left: 25px;
+  margin-top: 20px;
+}
+
+.my-field-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.prod-panel {
+  width: 80%;
+  min-width: 1000px;
+  max-width: 80%;
+  margin-left: 160px;
+}
+
+.prod-items {
+  background: #41A0EB;
+  border-radius: 1px;
+  border-radius: 1px;
+  width: 5px;
+  height: 15px;
+}
+
+
+.header-blank-65 {
+  height: 65px;
+}
+
+.formPanel::-webkit-scrollbar {
+    display: none;
+}
+
+.formPanel{
+  min-height: calc(100vh - 85px);
+}
+
+.icon-image {
+  width: 26px;
+  background-repeat: no-repeat;
+  background-size: 14px;
+  background-position: center;
+  height: 26px;
+  border-radius: 13px;
+}
+
+.pd-save-icon{
+  border: 0px solid #ffffff;
+  max-width: 60px;
+  min-width: 60px;
+}
+
+.el-popper[x-placement^=bottom] {
+  margin-top: -8px;
+}
+
+.my-card1 {
+  width: 136px;
+  height: 136px;
+  margin: 4px;
+  display: inline-block;
+  vertical-align: top;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  border-radius: 4px;
+  border-radius: 4px;
+  margin-left: 10px;
+  box-shadow: 0 12px 20px -10px rgba(0,0,0,0.12), 0 4px 20px 0px rgba(0,0,0,0.12), 0 7px 8px -5px rgba(0,0,0,0.12);
+}
+
+.add-text {
+  font-family: PingFangSC-Medium;
+  font-size: 11px;
+  color: #FFFFFF;
+  letter-spacing: 0;
+  margin-top: 10px;
+}
+
+.add-icons {
+  margin-top: 40px;
+}
+
+.md-card .md-card-actions {
+  border: 0;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.md-table-cell-container .md-button {
+  width: 80px;
+}
+
+.demo-table-expand {
+  font-size: 0;
+}
+
+.demo-table-expand label {
+  width: 90px;
+  color: #99a9bf;
+}
+
+.demo-table-expand .el-form-item {
+  margin-right: 0;
+  margin-bottom: 0;
+  width: 50%;
+}
+
+.el-table__expanded-cell {
+  background-color: #F9F9F9 !important;
+}
+
+.el-table__expanded-cell:hover {
+  background-color: #F9F9F9 !important;
+}
+
+.popover-container {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+}
+
+.template {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.template-desc {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.template-btn {
+  display: flex;
+  flex-direction: row;
+  margin-left: 10px;
+}
+
+.module {
+  background-color: #FFFFFF !important;
+  color: blue !important;
+  height: 30px !important;
+  width: 90px !important;
+  border-radius: 2px !important;;
+  color: #41A0EB !important;
+}
+
+.task {
+  display: flex;
+  flex-direction: row;
+  margin-left: -4px;
+  //margin-top: 20px;
+}
+
+.task-item {
+  padding-left: 3px;
+  padding-right: 6px;
+  display: inline-block;
+  max-width: 400px;
+  border-radius: 2px;
+  border-radius: 2px;
+  height: 210px;
+  margin: 0 3px 0 3px;
+  text-align: left;
+}
+
+.task-box {
+  margin-left: 5px;
+  width: 92px;
+  //height: 23px;
+  position: relative;
+  display: inline-block;
+  // display: flex;
+  // flex-direction: column;
+  // height: 200px;
+  //box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.14);
+  border-radius: 2px;
+  text-align: center;
+  line-height: 23px;
+  margin-top: 10px;
+  background-repeat: no-repeat;
+}
+
+.task-desc {
+  font-family: PingFangSC-Regular;
+  font-size: 11px;
+  color: #FFFFFF;
+}
+
+.el-popover .el-popper {
+  top: 180px;
+}
+
+.pd-button{
+  display: block;
+  width: 50px;
+  max-width: 50px;
+  min-width: 50px;
+}
+
+.pd-button:hover{
+  background-color:#f3e9e9;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.pd-icon-20 {
+  max-width: 20px;
+  min-width: 20px;
+}
+
+ .pd-icon-15 {
+   max-width: 12px;
+   min-width: 12px;
+ }
+
+.pd-text {
+  font-size: 10px;
+  padding-left: 15px;
+  margin-top: -7px;
+}
+
+
+
+.item-base, .item-period, .item-limit,
+.item-apy-rdm, .item-open, .item-nav,
+.item-capital, .item-trutee, .item-fee,
+.item-other, .item-tailing-commision,.item-doc,
+.item-sale-fee-pay, .item-fee-divid, .item-sale-service
+.item-trade-fee{
+  margin: 0px 0px 0px 2px;
+  padding: 3px;
+  height: 25px;
+  width: 25px;
+  color: #fff;
+}
+
+
+.item-base{
+  background-color: #41A0EB;
+  background-image: url(/static/images/create/prod_base.svg);
+}
+
+.item-period{
+  background-color: #41C6EB;
+  background-image: url(/static/images/create/prod_period.svg);
+}
+
+.item-limit{
+  background-image: url(/static/images/create/prod_limit.svg);
+  background-color: #ed3333;
+}
+
+.item-apy-rdm{
+  background-image: url(/static/images/create/prod_apy_rdm.svg);
+  background-color: #7cba59;
+}
+
+.item-open{
+  background-image: url(/static/images/create/prod_open.svg);
+  background-color: #60D9C3;
+}
+
+.item-nav{
+  background-image: url(/static/images/create/prod_nav.svg);
+  background-color: #17abe3;
+}
+
+.item-capital{
+  background-image: url(/static/images/create/prod_capital.svg);
+  background-color: #e8989a;
+}
+
+.item-trutee{
+  background-image: url(/static/images/create/prod_trutee.svg);
+  background-color: #317bb0;
+}
+
+.item-fee{
+  background-image: url(/static/images/create/prod_fee.svg);
+  background-color: #ff8033;
+}
+
+.item-other{
+  background-image: url(/static/images/create/prod_other.svg);
+  background-color: #db41fd;
+}
+
+.item-tailing-commision {
+  background-image: url(/static/images/create/prod_tailing_commision.svg);
+  background-color: #41e1fd;
+}
+.item-sale-fee-pay {
+  background-image: url(/static/images/create/prod_sale_fee_pay.svg);
+  background-color: #41fdc5;
+}
+.item-fee-divid {
+  background-image: url(/static/images/create/prod_fee_divid.svg);
+  background-color: #47fd41;
+}
+
+.item-sale-service{
+  background-image: url(/static/images/create/prod_sale_service.svg);
+  background-color: #41c1fd;
+}
+
+.item-trade-fee{
+  background-image: url(/static/images/create/prod_trade_fee.svg);
+  background-color: #4cad4c;
+}
+
+ .item-doc{
+   background-image: url(/static/images/create/prod-module.svg);
+   background-color: #41c1fd;
+ }
+
+
+.selected-base, .selected-period, .selected-limit, .selected-apy-rdm,
+.selected-open, .selected-nav, .selected-capital, .selected-trutee,
+.selected-fee, .selected-other, .selected,.selected-doc
+.selected-tailing-commision, .selected-sale-fee-pay, .selected-fee-divid,
+.selected-sale-service, .selected-trade-fee{
+  box-shadow: 0 4px 8px 0 rgba(92,169,229,0.27);
+  border-radius: 3px;
+  color: #FFFFFF;
+}
+
+ .selected-doc{
+   background-color: #c6eb41;
+ }
+
+.selected-base{
+  background-color: #41A0EB;
+}
+
+.selected-period{
+  background-color: #41C6EB;
+}
+
+.selected-limit{
+  background-color: #ed3333;
+}
+
+.selected-apy-rdm{
+  background-color: #7cba59;
+}
+
+.selected-open{
+  background-color: #60D9C3;
+}
+
+.selected-nav{
+  background-color: #17abe3;
+}
+
+.selected-capital{
+  background-color: #e8989a;
+}
+
+.selected-trutee{
+  background-color: #317bb0;
+}
+
+.selected-fee{
+  background-color: #ff8033;
+}
+
+.selected-other{
+  background-color: #db41fd;
+}
+
+.selected-tailing-commision {
+  background-color: #41e1fd;
+}
+
+.selected-sale-fee-pay {
+  background-color: #41fdc5;
+}
+
+.selected-fee-divid {
+  background-color: #47fd41;
+}
+
+.selected-sale-service{
+  background-color: #41c1fd;
+}
+
+.selected-trade-fee{
+  background-color: #4cad4c;
+}
+
+// ::v-deep .k-form-body {
+//   overflow: hidden;
+//   padding-bottom: 5px;
+// }
+
+.parent-div{
+  margin: 0px;
+  position: static;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 100%;
+}

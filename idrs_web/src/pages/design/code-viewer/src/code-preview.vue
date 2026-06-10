@@ -1,0 +1,293 @@
+<script>
+import Vue from 'vue'
+import CodeEditor from "./code-editor.vue";
+import MeButton from "./button.vue";
+import { debounce } from "throttle-debounce";
+import { toggleClass } from "../utils/DOMhelper";
+import { parseComponent } from "../utils/sfcParser/parser";
+import { genStyleInjectionCode } from "../utils/sfcParser/styleInjection";
+import Tooltip from "./tooltip";
+import { isEmpty, extend, generateId } from "../utils/util";
+import { addStylesClient } from "../utils/style-loader/addStylesClient";
+// 字体图标
+import "../fonts/iconfont.css";
+
+// 组件渲染通用包导入
+import Tools from "@/utils/tools.js";
+
+export default {
+  name: "CodeViewer",
+  components: {
+    CodeEditor,
+    MeButton,
+    Tooltip,
+  },
+  props: {
+    theme: { type: String, default: "dark" }, //light
+    showCode: { type: Boolean, default: false },
+    source: { type: String },
+    renderToolbar: { type: Function },
+    errorHandler: { type: Function },
+    debounceDelay: {
+      type: Number,
+      default: 300,
+    },
+    submitData:{
+      type: Object,
+      default: () => {return {}}
+    },
+    taskInfo:{
+      type: Object,
+      default: () => {return {}}
+    }
+  },
+  data() {
+    return {
+      code: ``,
+      className: ["vue-code-viewer", "vue-app"], // page className
+      dynamicComponent: {
+        component: {
+          name: "renderComponent",
+          template: "<div>组件渲染错误，请检查代码</div>",
+        },
+      },
+      hasError: false,
+      errorMessage: null,
+      showCodeEditor: this.showCode,
+      showCodeIcon: {},
+    };
+  },
+  created() {
+    this.viewId = `vcv-${generateId()}`; // vue-code-view => vcv
+    this.debounceErrorHandler = debounce(this.debounceDelay, this.errorHandler);
+    this.stylesUpdateHandler = addStylesClient(this.viewId, {});
+  },
+  mounted() {
+    this._initialize();
+  },
+  methods: {
+    // 初始化
+    _initialize() {
+      // 传入初始值赋值  prop.source=>code
+      this.handleCodeChange(this.source);
+    },
+
+    genComponent() {
+      const { template, script, styles, customBlocks, errors } =
+        this.sfcDescriptor;
+
+      // console.log(this.sfcDescriptor);
+
+      const templateCode = template ? template.content.trim() : ``;
+      let scriptCode = script ? script.content.trim() : ``;
+      const { styleCode, styleArray } = genStyleInjectionCode(styles);
+
+      // 构建组件
+      const demoComponent = {};
+
+      // 组件 script
+      if (!isEmpty(scriptCode)) {
+        const componentScript = {};
+        scriptCode = scriptCode.replace(
+          /export\s+default/,
+          "componentScript ="
+        );
+        eval(scriptCode);
+        console.log("  scriptCode ", scriptCode);
+        extend(demoComponent, componentScript);
+        console.log("  componentScript ", componentScript);
+        console.log("  demoComponent ", demoComponent);
+      }
+
+      // 组件 template
+      // id="${componentId}"
+      demoComponent.template = `
+            <section class="component-wrapper" >
+              ${templateCode}
+            </section>
+        `;
+
+      // 组件 style
+      // https://github.com/vuejs/vue-style-loader/blob/master/lib/addStylesClient.js
+      this.stylesUpdateHandler(styleArray);
+
+      extend(this.dynamicComponent, {
+        name: this.codeViewerId,
+        component: demoComponent,
+      });
+
+    },
+    // 组件代码编辑器展示
+    handleShowCode() {
+      this.showCodeEditor = !this.showCodeEditor;
+    },
+    // 组件演示背景透明切换
+    handleChangeTransparent() {
+      toggleClass(this.$refs.codeViewer, "vue-code-transparent");
+    },
+    // 更新 code 内容
+    handleCodeChange(val) {
+      this.code = val;
+    },
+
+    renderPreview() {
+      const { hasError, errorMessage } = this;
+      if (hasError) {
+        return <pre class="code-view-error">{errorMessage}</pre>;
+      }
+
+      const renderComponent = this.dynamicComponent.component;
+      Vue.extend(renderComponent);
+      Vue.component('renderComponent', renderComponent)
+
+      return (
+        <div class="code-view">
+          <renderComponent submitData={this.submitData} taskInfo={this.taskInfo}></renderComponent>
+        </div>
+      );
+    },
+    // 代码检查
+    codeLint() {
+      // 校验代码是否为空
+      this.hasError = this.isCodeEmpty;
+      this.errorMessage = this.isCodeEmpty ? "代码不能为空！" : null;
+      // 代码为空 跳出检查
+      if (this.isCodeEmpty) return;
+
+      // 校验代码是否存在<template>
+      const { template } = this.sfcDescriptor;
+      const templateCode =
+        template && template.content ? template.content.trim() : ``;
+      const isTemplateEmpty = isEmpty(templateCode);
+
+      this.hasError = isTemplateEmpty;
+      this.errorMessage = isTemplateEmpty
+        ? "代码格式错误，不存在 <template> ！"
+        : null;
+      // 代码为空 跳出检查
+      if (this.isTemplateEmpty) return;
+    },
+    defaultButtonRender(showCodeButton, showTransparentButton) {
+      return (
+        <div>
+          {showCodeButton} {showTransparentButton}
+        </div>
+      );
+    },
+  },
+  computed: {
+    // SFC Descriptor Object
+    sfcDescriptor: function () {
+      return parseComponent(this.code);
+    },
+    // 代码是否为空
+    isCodeEmpty: function () {
+      return !(this.code && !isEmpty(this.code.trim()));
+    },
+  },
+  watch: {
+    // eslint-disable-next-line no-unused-vars
+    code(newSource, oldSource) {
+      this.codeLint();
+      // 错误事件处理
+      this.hasError &&
+        this.errorHandler &&
+        this.debounceErrorHandler(this.errorMessage);
+
+      if (!this.hasError) this.genComponent();
+    },
+    source(newVal, oldVal){
+      this._initialize();
+    }
+  },
+
+  render() {
+    const { className, renderToolbar, theme } = this;
+    return (
+      <div class={className} ref="codeViewer">
+        <div class="code-view-wrapper">
+          {this.renderPreview()}
+        </div>
+      </div>
+    );
+  },
+};
+</script>
+
+<style lang="scss">
+$code-view-wrapper-border-color: #f1f1f1;
+$code-view-wrapper-bg: #ffffff;
+$primary-color: #3498ff;
+
+.code-view-wrapper {
+  position: relative;
+  margin: 18px 0;
+  padding: 0;
+  // border: 1px dashed #f1f1f1;
+  // border: 1px solid #ebebeb;
+
+  border-color: $code-view-wrapper-border-color;
+  background-color: $code-view-wrapper-bg;
+  border-radius: 4px;
+  transition: 0.3s linear border-color;
+
+  // &:hover {
+  //   border: 1px dashed $primary-color;
+  // }
+
+  .code-view {
+    padding: 18px;
+    // &:after {
+    //   position: absolute;
+    //   top: 18px;
+    //   left: 18px;
+    //   font-size: 12px;
+    //   font-weight: 300;
+    //   color: #959595;
+    //   text-transform: uppercase;
+    //   letter-spacing: 1px;
+    // }
+  }
+  .code-view-error {
+    padding: 18px;
+    color: red;
+    max-height: 200px;
+  }
+
+  .code-view-toolbar {
+    padding: 8px;
+    border-color: $code-view-wrapper-border-color;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    > .icon {
+      font-size: 16px;
+    }
+  }
+}
+
+// CodeMirror
+.CodeMirror {
+  text-align: left;
+  padding: 10px;
+  // margin: 10px 0;
+  height: auto !important;
+  pre {
+    padding: 0 20px;
+  }
+}
+
+.vue-code-transparent .code-view {
+  background-image: linear-gradient(
+      45deg,
+      rgb(249, 249, 250) 25%,
+      transparent 25%
+    ),
+    linear-gradient(135deg, rgb(249, 249, 250) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, rgb(249, 249, 250) 75%),
+    linear-gradient(135deg, transparent 75%, rgb(249, 249, 250) 75%);
+  background-size: 20px 20px;
+  background-position: 0px 0px, 10px 0px, 10px -10px, 0px 10px;
+}
+</style>

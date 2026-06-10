@@ -1,0 +1,32 @@
+/* 分页 */
+.block {
+  margin-top: 15px;
+}
+
+.el-pagination__total {
+  display: inline-block;
+  width: 70px;
+  font-size: 12px !important;
+  text-align: center;
+  /* font-weight: 600; */
+}
+
+.el-pagination .el-select .el-input .el-input__inner {
+  /* font-weight: 600; */
+  height: 23px;
+  font-size: 12px !important;
+}
+
+.el-pagination--small button,
+.el-pagination--small span:not([class*="suffix"]) {
+  /* font-weight: 600; */
+  font-size: 12px !important;
+}
+
+.el-input__inner {
+  /* font-weight: 600; */
+}
+
+.el-pagination.is-background .el-pager li:not(.disabled).active {
+  color: white !important;
+}

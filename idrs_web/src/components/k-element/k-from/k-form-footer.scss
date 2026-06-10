@@ -1,0 +1,25 @@
+.k-form-footer-content{
+  width: 100%;
+  display: flex;
+  margin-top: 25px;
+}
+
+.k-form-footer-align-left{
+ justify-content: flex-start;
+}
+
+.k-form-footer-align-center{
+ justify-content:center;
+}
+
+.k-form-footer-align-right{
+ justify-content:flex-end;
+}
+
+.k-form-footer-align-default{
+  margin-left: 100px;
+}
+
+.k-form-footer-content button{
+  margin: 0 7.5px;
+}

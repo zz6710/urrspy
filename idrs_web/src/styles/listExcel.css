@@ -1,0 +1,110 @@
+/* list表格样式共用组件 */
+.searchUser .el-input--small {
+  width: 200px;
+  margin: 10px 10px 10px 0px;
+}
+
+.search {
+  margin-bottom: 10px;
+  margin-top: -5px;
+  /* border-bottom: 1px solid #eee; */
+  /* background-color: rgb(252, 252, 252); */
+  /* text-align: center; */
+}
+
+.update {
+  width: 25px;
+  color: #409eff;
+  cursor: pointer;
+}
+
+.account {
+  margin-left: 20px;
+}
+
+.block {
+  margin-top: 15px;
+}
+
+.el-table--enable-row-transition .el-table__body td {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.all {
+  -webkit-animation-name: fadeIn;
+  -webkit-animation-duration: 0.6s;
+  -webkit-animation-iteration-count: 1;
+  -webkit-animation-delay: 0s;
+}
+
+.el-table .cell,
+.el-table th div,
+.el-table--border td:first-child .cell,
+.el-table--border th:first-child .cell {
+  padding-left: 0 !important;
+  text-align: center;
+}
+
+.el-table th > .cell {
+  font-size: 14px;
+  font-weight: 1200;
+}
+
+.el-table .cell {
+  margin-left:3%;
+}
+
+/*table滚动条横向样式*/
+.el-table__body-wrapper::-webkit-scrollbar {
+  /*滚动条整体样式*/
+  height:17px !important; /*高宽分别对应横竖滚动条的尺寸*/
+}
+
+.el-table__body-wrapper::-webkit-scrollbar-thumb {
+  /*滚动条里面小方块*/
+  border-radius: 7px !important;
+  /* -webkit-box-shadow: inset 0 0 5px hsla(220, 4%, 58%, 0.3);
+  background: hsla(220, 4%, 58%, 0.3); */
+  /* background-color: hsla(220,4%,58%,.3); */
+  transition: background-color 0.3s !important;
+  background-color: rgba(164, 167, 173, 0.3) !important;
+}
+
+.el-table__body-wrapper::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(119, 122, 128, 0.3) !important;
+}
+
+.el-table__body-wrapper::-webkit-scrollbar-track {
+  /*滚动条里面轨道*/
+  /* -webkit-box-shadow: inset 0 0 5px rgb(223, 230, 240); */
+  transform: translateX(0%) !important;
+  border-radius: 0 !important;
+  /* background: rgb(45, 58, 75); */
+  opacity: 0 !important;
+  transition: opacity 0.12s ease-out !important;
+}
+
+.el-button--info {
+  background-color: rgb(108, 165, 55);
+  border-color: rgb(108, 165, 55);
+  opacity:0.7;
+}
+
+.el-button--info:hover {
+  opacity:0.6;
+  background-color: rgb(108, 165, 55);
+}
+
+.el-button--mini, .el-button--mini.is-round {
+  padding: 4px 6px;
+}
+
+.el-table--enable-row-transition .el-table__body td {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.el-header{
+  padding-bottom: 10px;
+}

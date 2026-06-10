@@ -1,0 +1,877 @@
+<template>
+  <div>
+    <div>
+      <table class="task-table">
+        <tr>
+          <td>
+            <div class="btn-title">
+              <span class="head-span">选择产品组件</span>
+            </div>
+          </td>
+          <td>
+            <div class="btn-title" style="padding: 0px;">
+              <span class="head-span">已选择组件</span>
+<!--              <div class="head-tips">i</div>-->
+<!--              <span style="font-family: PingFangSC-Regular;font-size: 12px;color: #999999;">组件顺序</span>-->
+            </div>
+          </td>
+        </tr>
+
+
+        <tr>
+
+
+
+
+          <td>
+            <ul class="add-task-ul">
+              <div class="btn-bottom1">
+                <div class="color-head" style="background: #F55D60;"></div>
+                <div class="color-head-span">组件</div>
+              </div>
+              <li v-for="taskInfo in taskInfoMJ" :key="taskInfo.assemblyId">
+                <div class="btn-bottom2" >
+                  <el-button round size="small" @click="btnOnClick(taskInfo)" :title="taskInfo.assemblyDesc"
+                             :class="{'btn-color-DQ' : taskInfo.inTaskSet === '1'}">{{taskInfo.assemblyDesc}}</el-button>
+                </div>
+              </li>
+            </ul>
+          </td>
+
+
+
+
+
+          <td>
+            <div class="td-div">
+              <div class="cycle-div border-MJ" :style="{'height': cycleHeadHeight_MJ +'px'}">
+                <div class = "cycle-title">
+                  <span>组件</span>
+                </div>
+                <div class = "cycle-detail">
+                  <ul class="task-ul">
+                    <transition-group>
+                      <li v-for="(taskInfo,index) in prodTaskSetMJ" :key="taskInfo.assemblyId">
+                        <div class="task-div" :title="taskInfo.assemblyDesc">
+                          <div class="box">
+                            <span>{{ (Array(2).join(0) + parseInt(index+1)).slice(-2) }}</span>
+                          </div>
+                          <div class="task-box task-box-MJ">
+                            <span>{{taskInfo.assemblyDesc}}</span>
+                          </div>
+                        </div>
+                      </li>
+                    </transition-group>
+                  </ul>
+                </div>
+              </div>
+              <div class="cycle-head-arrowhead arrowhead_mj"></div>
+            </div>
+          </td>
+        </tr>
+
+
+
+
+
+
+<!--        <tr>-->
+<!--          <td>-->
+<!--            <ul class="add-task-ul">-->
+<!--              <div class="btn-bottom1">-->
+<!--                <div class="color-head" style="background: #5ACBB7;"></div>-->
+<!--                <div class="color-head-span">修改</div>-->
+<!--              </div>-->
+<!--              <li v-for="taskInfo in taskInfoCL" :key="taskInfo.assemblyId">-->
+<!--                <div class="btn-bottom2" >-->
+<!--                  <el-button round size="small" @click="btnOnClick(taskInfo)" :title="taskInfo.assemblyDesc"-->
+<!--                             :class="{'btn-color-CL' : taskInfo.inTaskSet === '1'}"> {{taskInfo.assemblyDesc}} </el-button>-->
+<!--                </div>-->
+<!--              </li>-->
+<!--            </ul>-->
+<!--          </td>-->
+<!--          <td>-->
+<!--            <div class="td-div">-->
+<!--              <div class="cycle-head-nock nock-cl"></div>-->
+<!--              <div class="cycle-div border-CL" :style="{'height': cycleHeadHeight_CL +'px'}">-->
+<!--                <div class = "cycle-title">-->
+<!--                  <span>修改</span>-->
+<!--                </div>-->
+<!--                <div class = "cycle-detail">-->
+<!--                  <ul class="task-ul">-->
+<!--                    <draggable ref="draggableObj" v-model="prodTaskSetCL" @update="datadragEnd" :options="{animation:500}" >-->
+<!--                      <transition-group>-->
+<!--                        <li v-for="(taskInfo,index) in prodTaskSetCL" :key="taskInfo.assemblyId">-->
+<!--                          <div class="task-div" :title="taskInfo.assemblyDesc">-->
+<!--                            <div class="box">-->
+<!--                              <span>{{ (Array(2).join(0) + parseInt(index+1)).slice(-2) }}</span>-->
+<!--                            </div>-->
+<!--                            <div class="task-box task-box-CL">-->
+<!--                              <span>{{taskInfo.assemblyDesc}}</span>-->
+<!--                            </div>-->
+<!--                          </div>-->
+<!--                        </li>-->
+<!--                      </transition-group>-->
+<!--                    </draggable>-->
+<!--                  </ul>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--              <div class="cycle-head-arrowhead arrowhead_cl"></div>-->
+<!--            </div>-->
+<!--          </td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--          <td>-->
+<!--            <ul class="add-task-ul">-->
+<!--              <div class="btn-bottom1">-->
+<!--                <div class="color-head" style="background: #FF8307;"></div>-->
+<!--                <div class="color-head-span">详情</div>-->
+<!--              </div>-->
+<!--              <li v-for="taskInfo in taskInfoCX" :key="taskInfo.assemblyId">-->
+<!--                <div class="btn-bottom2" >-->
+<!--                  <el-button round size="small" @click="btnOnClick(taskInfo)" :title="taskInfo.assemblyDesc"-->
+<!--                             :class="{'btn-color-CX' : taskInfo.inTaskSet === '1'}">{{taskInfo.assemblyDesc}}</el-button>-->
+<!--                </div>-->
+<!--              </li>-->
+<!--            </ul>-->
+<!--          </td>-->
+<!--          <td>-->
+<!--            <div class="td-div">-->
+<!--              <div class="cycle-head-nock nock-cx"></div>-->
+<!--              <div class="cycle-div border-CX" :style="{'height': cycleHeadHeight_CX +'px'}">-->
+<!--                <div class = "cycle-title">-->
+<!--                  <span>详情</span>-->
+<!--                </div>-->
+<!--                <div class = "cycle-detail">-->
+<!--                  <ul class="task-ul">-->
+<!--                    <draggable ref="draggableObj" v-model="prodTaskSetCX" @update="datadragEnd" :options="{animation:500}" >-->
+<!--                      <transition-group>-->
+<!--                        <li v-for="(taskInfo,index) in prodTaskSetCX" :key="taskInfo.assemblyId">-->
+<!--                          <div class="task-div" :title="taskInfo.assemblyDesc">-->
+<!--                            <div class="box">-->
+<!--                              <span>{{ (Array(2).join(0) + parseInt(index+1)).slice(-2) }}</span>-->
+<!--                            </div>-->
+<!--                            <div class="task-box task-box-CX">-->
+<!--                              <span>{{taskInfo.assemblyDesc}}</span>-->
+<!--                            </div>-->
+<!--                          </div>-->
+<!--                        </li>-->
+<!--                      </transition-group>-->
+<!--                    </draggable>-->
+<!--                  </ul>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--              <div class="cycle-head-arrowhead arrowhead_cx"></div>-->
+<!--            </div>-->
+<!--          </td>-->
+<!--        </tr>-->
+
+
+
+
+<!--        <tr>-->
+<!--          <td>-->
+<!--            <ul class="add-task-ul">-->
+<!--              <div class="btn-bottom1">-->
+<!--                <div class="color-head" style="background: #F55D60;"></div>-->
+<!--                <div class="color-head-span">调整</div>-->
+<!--              </div>-->
+<!--              <li v-for="taskInfo in taskInfoDQ" :key="taskInfo.assemblyId">-->
+<!--                <div class="btn-bottom2" >-->
+<!--                  <el-button round size="small" @click="btnOnClick(taskInfo)" :title="taskInfo.assemblyDesc"-->
+<!--                             :class="{'btn-color-DQ' : taskInfo.inTaskSet === '1'}">{{taskInfo.assemblyDesc}}</el-button>-->
+<!--                </div>-->
+<!--              </li>-->
+<!--            </ul>-->
+<!--          </td>-->
+<!--          <td>-->
+<!--            <div class="td-div">-->
+<!--              <div class="cycle-head-nock nock-dq"></div>-->
+<!--              <div class="cycle-div border-DQ" :style="{'height': cycleHeadHeight_DQ +'px'}">-->
+<!--                <div class = "cycle-title">-->
+<!--                  <span>调整</span>-->
+<!--                </div>-->
+<!--                <div class = "cycle-detail">-->
+<!--                  <ul class="task-ul">-->
+<!--                    <draggable ref="draggableObj" v-model="prodTaskSetDQ" @update="datadragEnd" :options="{animation:500}" >-->
+<!--                      <transition-group>-->
+<!--                        <li v-for="(taskInfo,index) in prodTaskSetDQ" :key="taskInfo.assemblyId">-->
+<!--                          <div class="task-div" :title="taskInfo.assemblyDesc">-->
+<!--                            <div class="box">-->
+<!--                              <span>{{ (Array(2).join(0) + parseInt(index+1)).slice(-2) }}</span>-->
+<!--                            </div>-->
+<!--                            <div class="task-box task-box-DQ">-->
+<!--                              <span>{{taskInfo.assemblyDesc}}</span>-->
+<!--                            </div>-->
+<!--                          </div>-->
+<!--                        </li>-->
+<!--                      </transition-group>-->
+<!--                    </draggable>-->
+<!--                  </ul>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--              <div class="cycle-head-arrowhead arrowhead_dq"></div>-->
+<!--            </div>-->
+<!--          </td>-->
+<!--        </tr>-->
+
+
+      </table>
+    </div>
+
+
+    <div class="form-foot">
+      <k-btn class="btn-custom-primary" data-functype="SUBMIT" data-action="T8ProdAssemblyList.addAssemblyProdModeList" style="margin-right: 4px;"
+             :data-model="formData" :data-handler="confirmHandler">
+        <md-icon md-src="/static/svg/confirm.svg"></md-icon>确定
+      </k-btn>
+      <k-btn class="btn-custom-plain" data-functype="CLOSE">
+        <md-icon md-src="/static/svg/cancel.svg"></md-icon>取消
+      </k-btn>
+    </div>
+  </div>
+</template>
+
+<script>
+
+import draggable from'vuedraggable'
+
+export default {
+  components:{
+    draggable,
+  },
+  props: {
+    updSuccess: Function,
+    modValue:{},
+  },
+  data() {
+    return {
+      prodClearLifecycleTypes:{typeMJ:'1',typeCL:'2',typeCX:'3',typeDQ:'4'},
+      taskInfoMJ: [],//新增
+      taskInfoCL: [],//修改
+      taskInfoCX: [],//详情
+      taskInfoDQ: [],//调整
+      prodTaskSetMJ:[],
+      prodTaskSetCL:[],
+      prodTaskSetCX:[],
+      prodTaskSetDQ:[],
+      // btnColor:{},
+      formData:{},
+      indexMapping:{},
+//      taskInfos: [],
+      cycleHeadHeight_MJ:45,
+      cycleHeadHeight_CL:45,
+      cycleHeadHeight_CX:45,
+      cycleHeadHeight_DQ:45,
+      // cycleHeadHeight_TJ:45,
+    };
+  },
+  methods: {
+
+    confirmHandler:function(params){
+
+      let t8ProdAssemblyList =  [];
+      t8ProdAssemblyList.push(...this.prodTaskSetMJ);
+      t8ProdAssemblyList.push(...this.prodTaskSetCL);
+      t8ProdAssemblyList.push(...this.prodTaskSetCX);
+      t8ProdAssemblyList.push(...this.prodTaskSetDQ);
+
+      params["t8ProdAssemblyList"] = JSON.stringify(t8ProdAssemblyList);
+      params["prodMode"] = this.modValue.prodMode;
+
+      return params;
+    },
+
+    btnOnClick: function(taskInfo){
+      let taskSet;
+      if(this.prodClearLifecycleTypes["typeMJ"] === taskInfo.menuItemsType){
+        taskSet = this.prodTaskSetMJ;
+      }else if(this.prodClearLifecycleTypes["typeCL"] === taskInfo.menuItemsType){
+        taskSet = this.prodTaskSetCL;
+      }else if(this.prodClearLifecycleTypes["typeCX"] === taskInfo.menuItemsType){
+        taskSet = this.prodTaskSetCX;
+      }else if(this.prodClearLifecycleTypes["typeDQ"] === taskInfo.menuItemsType){
+        taskSet = this.prodTaskSetDQ;
+      } else{
+        return;
+      }
+
+      //按钮点击，通过删除和添加 对应类型数组 内的对象来更新表单内容
+      if(taskInfo.inTaskSet=="1"){
+        this.$set(taskInfo, 'inTaskSet', '0');
+        this.$delete(taskSet, this.indexMapping[taskInfo.assemblyId]);
+
+        //更新 对应类型数组 任务与下标位置对应关系
+        for(let i=0;i< taskSet.length;i++){
+          this.indexMapping[taskSet[i].assemblyId] = i;
+        }
+
+      }else{
+
+        this.$set(taskInfo, 'inTaskSet', '1');
+        taskSet.push(taskInfo);
+
+        //更新 对应类型数组 任务与下标位置对应关系
+        for(let i=0;i< taskSet.length;i++){
+          this.indexMapping[taskSet[i].assemblyId] = i;
+        }
+
+      }
+
+    },
+
+    datadragEnd(evt){
+      evt.preventDefault();
+      //更新 对应类型数组 任务与下标位置对应关系
+      for(let i=0;i< this.prodTaskSetMJ.length;i++){
+        this.indexMapping[this.prodTaskSetMJ[i].assemblyId] = i;
+      }
+      for(let i=0;i< this.prodTaskSetCL.length;i++){
+        this.indexMapping[this.prodTaskSetCL[i].assemblyId] = i;
+      }
+      for(let i=0;i< this.prodTaskSetCX.length;i++){
+        this.indexMapping[this.prodTaskSetCX[i].assemblyId] = i;
+      }
+      for(let i=0;i< this.prodTaskSetDQ.length;i++){
+        this.indexMapping[this.prodTaskSetDQ[i].assemblyId] = i;
+      }
+    },
+  },
+
+
+
+
+
+  mounted() {
+    //查询产品组件，生成按钮
+      this.httpUtil.comnQuery({
+        action: 'T8ProdAssembly.findAssemblyProdMode',
+        params: {menuItemsType : '1' ,prodMode:this.modValue.prodMode}
+      }).then(data => {
+        for(let i=0;i<data.rows.length;i++){
+          let task = data.rows[i];
+          task.menuItemsType = '1';
+          this.taskInfoMJ.push(task);
+        }
+      });
+
+    this.httpUtil.comnQuery({
+      action: 'T8ProdAssembly.findAssemblyProdMode',
+      params: {menuItemsType : '2',prodMode:this.modValue.prodMode}
+    }).then(data => {
+      for(let i=0;i<data.rows.length;i++){
+        let task = data.rows[i];
+        task.menuItemsType = '2';
+        this.taskInfoCL.push(task);
+      }
+    });
+
+    this.httpUtil.comnQuery({
+      action: 'T8ProdAssembly.findAssemblyProdMode',
+      params: {menuItemsType : '3',prodMode:this.modValue.prodMode}
+    }).then(data => {
+      for(let i=0;i<data.rows.length;i++){
+        let task = data.rows[i];
+        task.menuItemsType = '3';
+        this.taskInfoCX.push(task);
+      }
+    });
+
+    this.httpUtil.comnQuery({
+      action: 'T8ProdAssembly.findAssemblyProdMode',
+      params: {menuItemsType : '4',prodMode:this.modValue.prodMode}
+    }).then(data => {
+      for(let i=0;i<data.rows.length;i++){
+        let task = data.rows[i];
+        task.menuItemsType = '4';
+        this.taskInfoDQ.push(task);
+      }
+    });
+
+
+
+    //查询该组已经配置的组件
+    this.httpUtil.comnQuery({
+      action: 'T8ProdAssembly.findAssemblyProdModeAdd',
+      params: {prodMode:this.modValue.prodMode}
+//      params: {prodMode:this.modValue.prodMode}
+    }).then(data => {
+
+      for(let i=0;i<data.rows.length;i++){
+        //以数组形式存储任务数据，indexMapping存储任务在Data 中的下标位置
+        let task = data.rows[i];
+        if(this.prodClearLifecycleTypes["typeMJ"] === task.menuItemsType){
+          this.indexMapping[data.rows[i].assemblyId] = this.prodTaskSetMJ.length;
+          this.prodTaskSetMJ.push(task);
+        }else if(this.prodClearLifecycleTypes["typeCL"] === task.menuItemsType){
+          this.indexMapping[data.rows[i].assemblyId] = this.prodTaskSetCL.length;
+          this.prodTaskSetCL.push(task);
+        }else if(this.prodClearLifecycleTypes["typeCX"] === task.menuItemsType){
+          this.indexMapping[data.rows[i].assemblyId] = this.prodTaskSetCX.length;
+          this.prodTaskSetCX.push(task);
+        }else if(this.prodClearLifecycleTypes["typeDQ"] === task.menuItemsType){
+          this.indexMapping[data.rows[i].assemblyId] = this.prodTaskSetDQ.length;
+          this.prodTaskSetDQ.push(task);
+        }
+      }
+
+    });
+
+  },
+
+  created() {
+
+  },
+
+  watch:{
+    taskInfoMJ(newValue){
+      //根据任务按钮数量调整右边向下箭头的高度；45是除了按钮，其他元素的总高度，按钮数量除以5是每一行5个按钮，得出行数，一行高36。
+      this.cycleHeadHeight_MJ = 30;
+      this.cycleHeadHeight_MJ = this.cycleHeadHeight_MJ + Math.ceil(newValue.length/5) * 36;
+
+    },
+    taskInfoCL(newValue){
+      this.cycleHeadHeight_CL = 25;
+      this.cycleHeadHeight_CL = this.cycleHeadHeight_CL + Math.ceil(newValue.length/5) * 36;
+    },
+    taskInfoCX(newValue){
+      this.cycleHeadHeight_CX = 32;
+      this.cycleHeadHeight_CX = this.cycleHeadHeight_CX + Math.ceil(newValue.length/5) * 36;
+
+    },
+    taskInfoDQ(newValue){
+      this.cycleHeadHeight_DQ = 25;
+      this.cycleHeadHeight_DQ = this.cycleHeadHeight_DQ + Math.ceil(newValue.length/5) * 36;
+    },
+
+  }
+
+}
+</script>
+
+<style lang="scss" scoped>
+
+
+
+
+li .el-button--small, .el-button--small.is-round {
+  margin: 10px 10px 0px 10px;
+  width: 174px;
+  height: 48px;
+  font-family: PingFangSC-Regular;
+  font-size: 14px;
+  line-height: 5px;
+  border: 0.5px solid #CCCCCC;
+}
+
+li .el-button--small, .el-button--small.is-round > span{
+  width: 100%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: inline-block;
+}
+
+
+.task-box > span{
+  font-family: PingFangSC-Regular;
+  font-size: 11px;
+  color: #FFFFFF;
+  bottom: 4px;
+  position: relative;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 58px;
+  display: inline-block;
+}
+
+.el-button--small, .el-button--small.is-round {
+  padding: 9px 6px;
+}
+
+.head-span{
+  font-family: PingFangSC-Semibold;
+  font-size: 14px;
+  color: #3D4859;
+}
+
+.task-ul {
+  margin: 0;
+  font-size: 14px;
+  list-style: none;
+  padding:0 0 0 0;
+}
+
+.task-ul  li {
+  display:inline-block;
+}
+
+
+.addTaskPopup > .el-dialog > .el-dialog__body{
+  padding: 5px 0 0 0 ;
+}
+
+.btn-selected{
+  background-color: #94a1a7;
+}
+
+
+.btn-unSelected{
+  background-color:#FFF;
+}
+
+.btn-title {
+  margin-bottom: 10px;
+  padding : 0px 30px;
+  margin-top: 10px;
+}
+
+.btn-title > span{
+  font-weight: 600;
+}
+
+.add-task-ul {
+  padding: 0 30px 10px 30px;
+  margin: 0 0 12px 0;
+}
+
+.add-task-ul > li{
+  display:inline-block;
+}
+
+
+.k-timeline-item__tail{
+  position: absolute;
+  left: 20px;
+  height: 90%;
+  border-left: 2px dashed #E4E7ED;
+  top: 40px;
+}
+
+.k-el-timeline-item__node--large{
+  left: 10px;
+  width: 20px;
+  height: 20px;
+  top: 19px;
+  color:#FFF;
+}
+
+/*左边组件*/
+.k-el-timeline-item__node--large-div{
+  width: 150px;
+  text-align: left;
+  top: 100px;
+  padding-left: 20px;
+}
+
+.k-el-timeline-item__node--large-div > span{
+  line-height: 63px;
+  color: #606266;
+  width: 130px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  position: absolute;
+}
+
+.form-foot {
+  text-align:center;
+  padding: 10px 0 0 0;
+}
+
+.drag-item{
+  width:200px;
+  height:50px;
+  line-height:50px;
+  margin:auto;
+  position:relative;
+  background:#ddd;
+  margin-top:20px;
+}
+/*==============================================*/
+
+.cycle-head {
+  width: 7.9px;
+  height: 85%;
+}
+.cycle-head-MJ {
+  background: #4062c7;
+}
+.cycle-head-CL {
+  background: #51CAB4;
+}
+.cycle-head-CX {
+  background: #FF8307;
+}
+.cycle-head-DQ {
+  background: #F55D60;
+}
+.cycle-head-nock {
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 16px;
+  height: 24px;
+  margin-top: -16px;
+}
+.nock-mj {
+  background-image: url(/static/svg/clear/5001_task_tail_mj.svg);
+}
+.nock-cl {
+  background-image: url(/static/svg/clear/5001_task_tail_cl.svg);
+}
+.nock-cx {
+  background-image: url(/static/svg/clear/5001_task_tail_cx.svg);
+}
+.nock-dq {
+  background-image: url(/static/svg/clear/5001_task_tail_dq.svg);
+}
+.nock-tj {
+  background-image: url(/static/svg/clear/5001_task_tail_tj.svg);
+}
+
+
+.cycle-head-arrowhead {
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 16px;
+  height: 32px;
+}
+.arrowhead_mj {
+  background-image: url(/static/svg/clear/5001_task_head_mj.svg);
+}
+.arrowhead_cl {
+  background-image: url(/static/svg/clear/5001_task_head_cl.svg);
+}
+.arrowhead_cx {
+  background-image: url(/static/svg/clear/5001_task_head_cx.svg);
+}
+.arrowhead_dq {
+  background-image: url(/static/svg/clear/5001_task_head_dq.svg);
+}
+/*.arrowhead_tj {*/
+/*  background-image: url(/static/svg/clear/5001_task_head_tj.svg);*/
+/*}*/
+
+/*右边目录*/
+.cycle-title > span{
+  font-family: PingFangSC-Medium;
+  font-size: 24px;
+  color: #333333;
+  font-weight: 400;
+  padding-left: 10px;
+}
+.cycle-div{
+  display: inline-block;
+}
+.td-div:hover{
+  box-shadow: 0 0 20px 0 rgba(0,0,0,0.10);
+  z-index: 999;
+}
+
+.cycle-detail {
+  padding: 0px 0px 10px 25px;
+  width: 100%;
+}
+
+.color-head{
+  border-radius: 4px;
+  width:8px;
+  height:22px;
+  display: inline-flex;
+}
+
+/*左边目录*/
+.color-head-span{
+  font-family: PingFangSC-Regular;
+  font-size: 24px;
+  color: #3D4859;
+  display: inline-flex;
+  font-weight: 400;
+}
+
+.btn-bottom1{
+  margin-bottom: 8px;
+}
+
+.btn-bottom2{
+  margin-bottom: 16px;
+}
+
+.btn-color-MJ{
+  background: #E3F2FF;
+  border: 1px solid #4EA6EC;
+  color: #2A95EA;
+  font-family: PingFangSC-Regular;
+  font-size: 24px;
+  line-height: 10px;
+  border: 1px solid;
+}
+.btn-color-CL{
+  background: #DDF7F2;
+  border: 0.5px solid #51CAB4;
+  color: #11BD9E;
+  font-family: PingFangSC-Regular;
+  font-size: 12px;
+  line-height: 5px;
+}
+.btn-color-CX{
+  background: #FFF1E3;
+  border: 0.5px solid #FF8307;
+  color: #FF8307;
+  font-family: PingFangSC-Regular;
+  font-size: 12px;
+  line-height: 5px;
+}
+.btn-color-DQ{
+  background: #FFE8E8;
+  border: 0.5px solid #F55D60;
+  color: #F55D60;
+  font-family: PingFangSC-Regular;
+  font-size: 12px;
+  line-height: 5px;
+}
+
+.btn-color-TJ{
+  background: #F3E8FF;
+  border: 1px solid #9B84DE;
+  color: #9B84DE;
+  font-family: PingFangSC-Regular;
+  font-size: 24px;
+  line-height: 10px;
+}
+
+.task-div {
+  display: inline-flex;
+  width: 240px;
+  margin: 0px 5px 4px 0px;
+}
+
+.head-tips{
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  border: 1px solid #999999;
+  text-align: center;
+  line-height: 22px;
+  font-size: 0px;
+  color: #999999;
+  font-family: Times New Roman;
+  display: inline-block;
+  margin-left: 20px;
+}
+
+.task-table{
+  width:100%;
+}
+
+.task-table td{
+  width:100%;
+  display: block;
+}
+
+.task-table tr{
+  display: flex;
+}
+
+
+.task-box{
+  width: 206px;
+  height: 56px;
+  background-repeat: no-repeat;
+  background-position: center;
+  text-align: center;
+  line-height: 72px;
+  margin-left: -22px;
+}
+
+
+.task-box-MJ{
+  background-image: url('/static/images/clear/task-box-mj2.png');
+}
+.task-box-CL{
+  background-image: url('/static/images/clear/task-box-cl.png');
+}
+.task-box-CX{
+  background-image: url('/static/images/clear/task-box-cx.png');
+}
+.task-box-DQ{
+  background-image: url('/static/images/clear/task-box-dq.png');
+}
+/*.task-box-TJ{*/
+/*  background-image: url('/static/images/clear/task-box-tj.png');*/
+/*}*/
+
+.border-MJ{
+  border-left: 16px solid #4EA6EC;
+}
+.border-CL{
+  border-left: 8px solid #51CAB4;
+}
+.border-CX{
+  border-left: 8px solid #FF8307;
+}
+.border-DQ{
+  border-left: 8px solid #f55d60;
+}
+/*.border-TJ{*/
+/*  border-left: 8px solid #977DDF;*/
+/*}*/
+
+.head-icon{
+  display: inline-flex;
+  width: 16px;
+  height: 12px;
+  float: left;
+  margin-left: -16px;
+}
+
+/*数字导航框*/
+.box{
+  width: 35.4px;
+  height: 48px;
+  background-color: #FFFFFF;
+  position: relative;
+  border-radius: 4px;
+  display: inline-block;
+  left: 10px;
+  z-index: 4;
+  text-align: center;
+  box-shadow: -2px 0px 22px -1px rgba(0,0,0,0.28);
+  margin-top: 4.6px;
+}
+.box:before{
+  content: "";
+  width: 0;
+  height: 0;
+  position: absolute;
+  top: 0;
+  left: -14px;
+  border-top: 23px solid transparent;
+  border-bottom: 26px solid transparent;
+  border-right: 16px #FFFFFF solid;
+  border-left: none;
+  box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.28);
+}
+.box:after{
+  content: "";
+  width: 0;
+  height: 0;
+  position: absolute;
+  top: 0;
+  left: 34px;
+  border-top: 23px solid transparent;
+  border-bottom: 26px solid transparent;
+  border-right: none;
+  border-left: 14px #FFFFFF solid;
+  box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.28);
+}
+
+.box > span{
+  font-family: Arial-BoldMT;
+  font-size: 20px;
+  color: #4EA6EC;
+  font-weight: 800;
+  line-height: 52px;
+}
+</style>

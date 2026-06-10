@@ -1,0 +1,117 @@
+{
+	"info": {
+		"_postman_id": "bf7cedc7-e3a3-443a-8109-bea7352431bf",
+		"name": "工作流完善",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "获取预测的流程任务节点",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2ODA3NzM5MjQsInN1YiI6IntcInVzZXJpZFwiOlwiYWRtaW5cIn0ifQ.5uDJoLZkLfXzOi2bl7nKfeJ3ISCTxpHGXPpjj4-DN9g",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"variables\":{\n        \"rolename\": \"测试报表1\",\n        \"descript\":\"1\",\n        \"name\":\"袁金桥11\",\n        \"roleid\": \"47\",\n        \"user\":{\n            \"name\":\"123\"\n        }\n    },\n    \"procKey\":\"Process_1664763158578\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:28885/wf/calculateProcess/getCalculateTask.json",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "28885",
+					"path": [
+						"wf",
+						"calculateProcess",
+						"getCalculateTask.json"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "获取预测申请节点的抄送人",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2ODA3NzM5MjQsInN1YiI6IntcInVzZXJpZFwiOlwiYWRtaW5cIn0ifQ.5uDJoLZkLfXzOi2bl7nKfeJ3ISCTxpHGXPpjj4-DN9g",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"procKey\":\"Process_1664763158578\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:28885/wf/calculateProcess/getCalculateCopy.json",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "28885",
+					"path": [
+						"wf",
+						"calculateProcess",
+						"getCalculateCopy.json"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "发起流程",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2ODA3NzM5MjQsInN1YiI6IntcInVzZXJpZFwiOlwiYWRtaW5cIn0ifQ.5uDJoLZkLfXzOi2bl7nKfeJ3ISCTxpHGXPpjj4-DN9g",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\n    \"rolename\": \"测试报表1\",\n    \"descript\":\"1\",\n    \"name\":\"袁金桥11\",\n    \"roleid\": \"47\",\n    \"user\":{\n        \"name\":\"123\"\n    },\n    \"_wfTaskApprover\":[\n        {\"id\":\"Activity_1ri6274\",\"approvers\":[\"237\"]},\n        {\"id\":\"Activity_1m8m0ub\",\"approvers\":[\"237\"]}\n    ],\n    \"_wfCopyUser\":{\"id\":\"Activity_1ulg5ky\",\"copyUsers\":[\"237\"]},\n    \"processInstanceId\":\"1c1ebfda-d205-11ed-9cac-f2e0cb4914fb\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:28885/wf/process/start.json",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "28885",
+					"path": [
+						"wf",
+						"process",
+						"start.json"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

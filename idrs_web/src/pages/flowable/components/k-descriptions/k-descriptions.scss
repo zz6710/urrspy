@@ -1,0 +1,104 @@
+.k-descriptions {
+  width: 90%;
+  margin: 10px auto;
+  box-shadow: 0 0 6px 0 #CFCFCF;
+  border-radius: 4px;
+  font-weight: 400;
+  font-size: 14px;
+  padding: 12px 20px;
+  margin-bottom: 20px !important;
+
+  .k-desc-title {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    padding-bottom: 4px;
+
+    .svg-icon {
+      fill: #0A4CA2;
+      margin-right: 6px;
+    }
+
+    span {
+      color: #000000;
+    }
+  }
+
+  .k-desc-content {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    .content-null-text {
+      width: 100%;
+      text-align: center;
+    }
+
+    .k-desc-data {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      position: relative;
+
+      .desc-line {
+        background-color: rgba(0, 0, 0, 0.1);
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 1px;
+      }
+
+      .desc-enter-active, .desc-leave-active {
+        transition: opacity .3s;
+      }
+
+      .desc-enter, .desc-leave-to {
+        opacity: 0;
+      }
+
+      .desc-operate-first {
+        position: absolute;
+        left: 0;
+        top: 6px;
+      }
+
+      .desc-operate-end {
+        position: absolute;
+        right: 0;
+        top: 6px;
+      }
+
+    }
+
+    .k-descriptions-item {
+      display: flex;
+      flex-wrap: nowrap;
+      padding: 8px 10px 6px 20px;
+
+      & /deep/ .desc-item-label {
+        text-align: right;
+        flex-shrink: 0;
+        color: #333333;
+      }
+
+      & /deep/ .desc-item-value {
+        color: #888888;
+        word-break: break-all;
+        word-wrap: break-word;
+      }
+    }
+  }
+}
+
+.k-descriptions-simple {
+  width: 100%;
+  box-shadow: none;
+  padding: {
+    top: 0;
+    bottom: 0;
+  }
+}

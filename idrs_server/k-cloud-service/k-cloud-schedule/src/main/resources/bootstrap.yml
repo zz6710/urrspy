@@ -1,0 +1,10 @@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+apollo:
+  bootstrap:
+    enabled: true
+    namespaces: jdbc.yaml, common.yaml, schedule.yaml

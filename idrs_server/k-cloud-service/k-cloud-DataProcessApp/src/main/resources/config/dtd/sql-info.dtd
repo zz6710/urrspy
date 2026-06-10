@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!ELEMENT sqlinfos (sqlinfo*)>
+<!ELEMENT sqlinfo (sql+)>
+<!ATTLIST sqlinfo sqlid ID #REQUIRED>
+<!ATTLIST sqlinfo sqlname CDATA #IMPLIED>
+<!ELEMENT sql (#PCDATA)>
+<!ATTLIST sql dbtype (all|mysql|oracle|db2) #REQUIRED>
+

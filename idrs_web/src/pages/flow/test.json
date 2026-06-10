@@ -1,0 +1,174 @@
+{
+	"name": "ContractFlow",
+	"displayName": "合同审批",
+	"nodesInfo": {
+		"start": { "type": "startevent-none", "style": "left: 16px; top: 30px;", "attrCache": { "name": "start" } },
+		"end": { "type": "endevent-none", "style": "left: 8px; top: 242px;", "attrCache": { "name": "end" } },
+		"applyTask": {
+			"type": "task",
+			"style": "left: 127px; top: 38px;",
+			"attrCache": {
+				"name": "applyTask",
+				"displayName": "申请",
+				"enableAttachment": "0",
+				"useRole": "1",
+				"specifiedUser": "0",
+				"formId": "",
+				"formUrl": "page/wfBusi/contractDetail.jsp"
+			}
+		},
+		"task1561709487900": {
+			"type": "task",
+			"style": "left: 811px; top: 140px;",
+			"attrCache": {
+				"name": "task1561709487900",
+				"enableAttachment": "0",
+				"useRole": "1",
+				"specifiedUser": "0",
+				"displayName": "财务审核",
+				"btns-checkedKeys": "3,1",
+				"btns-checkedValues": "通过,拒绝",
+				"roles-checkedKeys": "",
+				"roles-checkedValues": "",
+				"envTask": "",
+				"formId": "",
+				"updateEnvTask": "",
+				"formUrl": "",
+				"actors-checkedKeys": "02574",
+				"actors-checkedValues": "王卉"
+			}
+		},
+		"task1567583162431": {
+			"type": "task",
+			"style": "left: 284px; top: 38px;",
+			"attrCache": {
+				"name": "task1567583162431",
+				"enableAttachment": "0",
+				"useRole": "1",
+				"specifiedUser": "0",
+				"displayName": "直属领导",
+				"btns-checkedKeys": "3,1",
+				"btns-checkedValues": "通过,拒绝",
+				"envTask": "直属领导",
+				"actors-checkedKeys": "02868,00709",
+				"actors-checkedValues": "OA小程序审核,丁奕平",
+				"formId": "fd06ee01430548aeacc502eed0cc2147",
+				"formUrl": "url",
+				"roles-checkedKeys": "25,26",
+				"roles-checkedValues": "公司管理,财务管理",
+				"rejectTaskNames-checkedKeys": "task1567583162431,task1573181716448",
+				"rejectTaskNames-checkedValues": "直属领导,用印审批"
+			}
+		},
+		"task1573181716448": {
+			"type": "task",
+			"style": "left: 57px; top: 146px;",
+			"attrCache": {
+				"name": "task1573181716448",
+				"enableAttachment": "0",
+				"useRole": "1",
+				"specifiedUser": "0",
+				"displayName": "用印审批",
+				"actors-checkedKeys": "00004",
+				"actors-checkedValues": "宋长伟",
+				"btns-checkedKeys": "3,1",
+				"btns-checkedValues": "通过,拒绝"
+			}
+		},
+		"task1578468231136": {
+			"type": "task",
+			"style": "left: 601px; top: 179px;",
+			"attrCache": {
+				"name": "task1578468231136",
+				"enableAttachment": "0",
+				"useRole": "1",
+				"specifiedUser": "0",
+				"displayName": "法务审核",
+				"btns-checkedKeys": "3,1",
+				"btns-checkedValues": "通过,拒绝",
+				"envTask": "",
+				"actors-checkedKeys": "02695",
+				"actors-checkedValues": "闫雅倩"
+			}
+		},
+		"task1578468263183": {
+			"type": "task",
+			"style": "left: 407px; top: 250px;",
+			"attrCache": {
+				"name": "task1578468263183",
+				"enableAttachment": "0",
+				"useRole": "1",
+				"specifiedUser": "0",
+				"displayName": "销售合同确认",
+				"btns-checkedKeys": "3,1",
+				"btns-checkedValues": "通过,拒绝",
+				"envTask": "流程发起人"
+			}
+		},
+		"task1578470995724": {
+			"type": "task",
+			"style": "left: 209px; top: 250px;",
+			"attrCache": {
+				"name": "task1578470995724",
+				"enableAttachment": "0",
+				"useRole": "1",
+				"specifiedUser": "0",
+				"displayName": "法务盖章申请",
+				"actors-checkedKeys": "02695",
+				"actors-checkedValues": "闫雅倩",
+				"btns-checkedKeys": "3,1",
+				"btns-checkedValues": "通过,拒绝"
+			}
+		},
+		"fork1582619938606": {
+			"type": "gateway-fork",
+			"style": "left: 643px; top: 92px;",
+			"attrCache": { "name": "fork1582619938606", "forkHandler": "com.kayak.oa.entity.contract.ContractForkHandler" }
+		},
+		"productCenter": {
+			"type": "task",
+			"style": "left: 874px; top: 43px;",
+			"attrCache": {
+				"name": "productCenter",
+				"enableAttachment": "0",
+				"useRole": "1",
+				"specifiedUser": "0",
+				"displayName": "产品中心",
+				"btns-checkedKeys": "3,1",
+				"btns-checkedValues": "通过,拒绝",
+				"updateEnvTask": "",
+				"envTask": "产品中心领导"
+			}
+		},
+		"task1582700095408": {
+			"type": "task",
+			"style": "left: 495px; top: 121px;",
+			"attrCache": {
+				"name": "task1582700095408",
+				"enableAttachment": "0",
+				"useRole": "1",
+				"specifiedUser": "0",
+				"displayName": "营销中心总经理",
+				"btns-checkedKeys": "3,1",
+				"btns-checkedValues": "通过,拒绝",
+				"actors-checkedKeys": "02511",
+				"actors-checkedValues": "李焕楠"
+			}
+		},
+		"join1582707980832": { "type": "gateway-join", "style": "left: 938px; top: 199px;", "attrCache": { "name": "join1582707980832" } }
+	},
+	"connectionsInfo": {
+		"startConnection": { "from": "start", "to": "applyTask", "attrCache": { "name": "startConnection" } },
+		"connection1573181686647": { "from": "applyTask", "to": "task1567583162431", "attrCache": { "name": "connection1573181686647" } },
+		"connection1578471212866": { "from": "task1561709487900", "to": "task1578468231136", "attrCache": { "name": "connection1578471212866" } },
+		"autoConnection1": { "from": "task1578468231136", "to": "task1578468263183", "attrCache": { "name": "connection1578471212866" } },
+		"autoConnection2": { "from": "task1578468263183", "to": "task1578470995724", "attrCache": { "name": "connection1578471212866" } },
+		"autoConnection3": { "from": "task1578470995724", "to": "task1573181716448", "attrCache": { "name": "connection1578471212866" } },
+		"autoConnection4": { "from": "task1573181716448", "to": "end", "attrCache": { "name": "connection1578471212866" } },
+		"connectionP4": { "from": "fork1582619938606", "to": "productCenter", "attrCache": { "name": "connectionP4" } },
+		"connection1582621246054": { "from": "productCenter", "to": "join1582707980832", "attrCache": { "name": "connection1582621246054" } },
+		"connection1582624056926": { "from": "task1567583162431", "to": "task1582700095408", "attrCache": { "name": "connection1582624056926" } },
+		"connection1582705360097": { "from": "task1582700095408", "to": "fork1582619938606", "attrCache": { "name": "connection1582705360097" } },
+		"connection1584078177873": { "from": "join1582707980832", "to": "task1561709487900", "attrCache": { "name": "connection1584078177873" } }
+	}
+}

@@ -1,0 +1,39 @@
+
+.icon-add, .icon-reset, .icon-search, .icon-delete, .icon-modify,
+.icon-confirm, .icon-cancel,.icon-cancel-red {
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.icon-add {
+    background-image: url(/static/svg/icon/add.svg);
+}
+
+.icon-reset {
+    background-image: url(/static/svg/icon/reset.svg);
+}
+
+.icon-search {
+    background-image: url(/static/svg/icon/search.svg);
+}
+
+.icon-delete {
+    background-image: url(/static/svg/icon/delete.svg);
+}
+
+.icon-modify {
+    background-image: url(/static/svg/icon/modify.svg);
+}
+
+.icon-confirm {
+    background-image: url(/static/svg/icon/confirm.svg);
+}
+
+.icon-cancel {
+    background-image: url(/static/svg/icon/cancel.svg);
+}
+
+.icon-cancel-red {
+  background-image: url(/static/svg/icon/cancel-red.svg);
+}
+

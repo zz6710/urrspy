@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <script type='text/javascript' src="js/binary/dynaload.js"></script>
+  <script type='text/javascript' src="js/forReport.js"></script>
+  <script type='text/javascript' src="../../url-config.js"></script>
+</head>
+<script>
+
+  var xmladdress = "report/template.xml";
+  var baseUrl = getURL().baseUrl;
+  var serverUrl = getURL().baseUrl;
+  var edit = getUrlParams("edit");
+  var forTable = getUrlParams("menuid");
+  var swkrntpomzqa = getUrlParams("swkrntpomzqa");
+
+  function OnReady(id) {
+    getXmlInfo({
+      baseUrl: baseUrl,
+      forTable: forTable,
+      errorback() {
+        getXmlInfo({
+          baseUrl: baseUrl,
+          forTable: "M8430SP03",
+          errorback() {
+            construct(xmladdress)
+          }
+        }).then(xml => {
+          xmladdress = xml;
+          construct(xml)
+        })
+      }
+    }).then(xml => {
+      xmladdress = xml;
+      construct(xml)
+    })
+  }
+
+  function construct(data) {
+    AF.func("Build", data);
+    AF.func("SubscribeEvent", "Saved");
+    AF.func("Swkrntpomzqa", swkrntpomzqa);
+  }
+
+  function OnEvent(id, event, p1, p2, p3, p4) {
+    if(event !== "Saved") return;
+    saveEvent()
+  }
+
+  function saveEvent() {
+    let xml = AF.func("GetFileXML", "isSaveCalculateResult=true");
+    let data = AF.func("GetSources", "");
+    let datas = data.split("\n");
+    let exeids = [];
+    if (datas.length > 0) {
+      for (let i = 0; i < datas.length; i++) {
+        datas[i] = datas[i].replace(/(^\s*)|(\s*$)/g, "");
+        let url = AF.func("GetSource", datas[i]);
+        let reg = /[?&]exeid=([^&]+)/;
+        if (reg.test(url)) {
+          exeids.push(url.match(reg)[1]);
+        }
+      }
+    }
+    let paramss = {forTable: forTable, exeid: JSON.stringify(exeids), ds: JSON.stringify(datas), xml: xml};
+    window.parent.postMessage(paramss, "*")
+  }
+
+  function loadDataEvent(params) {
+    let datas = [], exeids = [];
+    params['menuid'] = forTable;
+    getXmlSql({
+      baseUrl: baseUrl,
+      forTable: forTable
+    }).then(res => {
+      for (let i = 0; i < res.length; i++) {
+        datas.push(res[i].ds);
+        exeids.push(res[i].exeid);
+      }
+      AF.func("Build", xmladdress);
+      for (let i = 0; i < datas.length; i++) {
+        let url = setXmlUrl(serverUrl, exeids[i], params);
+        AF.func("setSource", datas[i] + " \r\n " + url);
+        AF.func("Calc", "");
+      }
+    })
+  }
+
+  function hideEvent() {
+    let report = document.getElementById("reportHtml");
+    report.style.visibility = "hidden";
+    AF.func("GrayWindow", "true");
+  }
+
+  function showEvent() {
+    let report = document.getElementById("reportHtml");
+    report.style.visibility = "visible";
+    AF.func("GrayWindow", "");
+  }
+</script>
+<body>
+<div id="reportHtml" style="position:relative;width:97%">
+  <script>
+    if (JSON.parse(window.edit)) {
+      insertReport('AF', '', window.innerHeight - 50)
+    } else {
+      insertReport('AF', 'Rebar=Main,Print,Form; Border=none; Ruler=Vert, Horz; PagesTabPercent=30; SeperateBar=Vert,Horz; TabScrollBar=show; Main=105;Print=11,216,18;Form=717;CalcProgressText=false', window.innerHeight - 50)
+    }
+    window.addEventListener('resize', function() {
+      document.getElementById('AF').height = window.innerHeight - 50
+    })
+  </script>
+</div>
+</body>
+</html>

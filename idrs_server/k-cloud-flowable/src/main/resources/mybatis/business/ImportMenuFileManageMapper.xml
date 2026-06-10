@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kayak.web.business.mapper.ImportMenuFileManageMapper">
+
+    <resultMap type="com.kayak.web.business.domain.ImportMenuFileManage" id="ImportMenuFileManageResult">
+        <result property="id" column="id"/>
+        <result property="menuId" column="menu_id"/>
+        <result property="fileName" column="file_name"/>
+        <result property="localFilePath" column="local_file_path"/>
+        <result property="status" column="status"/>
+    </resultMap>
+
+    <update id="updateStatusById">
+        UPDATE import_menu_file_manage
+           SET STATUS = #{status}
+         WHERE id = #{id}
+    </update>
+
+</mapper>

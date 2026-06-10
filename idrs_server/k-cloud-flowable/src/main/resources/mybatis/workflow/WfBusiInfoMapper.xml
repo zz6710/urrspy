@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kayak.web.workflow.mapper.WfBusiInfoMapper">
+    <resultMap type="com.kayak.web.workflow.domain.WfBusiInfo" id="WfBusiInfoResult">
+        <result property="busiId" column="busi_id"/>
+        <result property="server" column="server"/>
+        <result property="url" column="url"/>
+        <result property="keys" column="keys"/>
+        <result property="values" column="values"/>
+        <result property="valuesName" column="values_name"/>
+        <result property="processKey" column="process_key"/>
+        <result property="processDefinitionId" column="process_definition_id"/>
+        <result property="processInstanceId" column="process_instance_id"/>
+        <result property="processStatus" column="process_status"/>
+        <result property="busStatus" column="bus_status"/>
+        <result property="busReturnMsg" column="bus_return_msg"/>
+        <result property="remark" column="remark"/>
+        <result property="callbackNum" column="callback_num"/>
+        <result property="validateId" column="validate_id"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+    <select id="findNotFinishDataByUnKey" resultMap="WfBusiInfoResult">
+        SELECT *
+        FROM flow_busi_info
+        WHERE process_key = #{processKey} AND `values` = #{values} AND `keys` = #{unKey}
+        AND NOT (
+        (
+        process_status = #{procInsFinish} AND bus_status = #{busiFinish})
+        OR process_status = #{procInsRefuse}
+        OR (process_status = #{procInsFinish} AND bus_status = #{busiErrorConfirmed}
+        )
+        )
+    </select>
+    <select id="findNotFinishDataByProcessInstanceId" resultMap="WfBusiInfoResult">
+        SELECT *
+        FROM flow_busi_info
+        WHERE process_instance_id = #{processInstanceId}
+        AND NOT (
+        (
+        process_status = #{procInsFinish} AND bus_status = #{busiFinish})
+        OR process_status = #{procInsRefuse}
+        OR (process_status = #{procInsFinish} AND bus_status = #{busiErrorConfirmed}
+        )
+        )
+    </select>
+    
+    <update id="updateBusStatus">
+        UPDATE flow_busi_info SET
+        `callback_num` = `callback_num` + 1 ,
+        bus_status=#{busStatus},
+        bus_return_msg=#{message},
+        update_time=#{updateTime},
+        update_by=#{userId}
+        WHERE (process_instance_id = #{processInstanceId})
+    </update>
+
+    <select id="findNameByValues" resultMap="WfBusiInfoResult">
+        SELECT t.`values`,t1.bus_name as values_name
+        FROM flow_busi_info t left join flow_busi_config t1 on t.process_key = t1.process_key  where  t.process_instance_id = #{processInstanceId}
+
+    </select>
+</mapper>

@@ -1,0 +1,14 @@
+<?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg t="1593489398370" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+     p-id="19445" xmlns:xlink="http://www.w3.org/1999/xlink" width="128" height="128">
+  <title>分红</title>
+  <defs>
+    <style type="text/css"></style>
+  </defs>
+  <path
+    d="M474.88 72.362667C212.608 72.704 0 285.44 0 547.84c0 262.528 212.821333 475.52 475.52 475.52 262.656 0 475.52-212.992 475.52-475.52H474.88V72.362667z"
+    p-id="19446" fill="#7B8796"></path>
+  <path d="M554.069333 1.109333v467.626667H1023.573333C987.648 225.28 798.549333 33.536 554.069333 1.109333z"
+        p-id="19447" fill="#7B8796"></path>
+</svg>

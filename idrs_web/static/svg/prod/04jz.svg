@@ -1,0 +1,12 @@
+<?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg t="1593488953235" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+     p-id="17193" xmlns:xlink="http://www.w3.org/1999/xlink" width="64" height="64">
+  <title>净值</title>
+  <defs>
+    <style type="text/css"></style>
+  </defs>
+  <path
+    d="M609.974857 992H413.988571V32h195.949715v960zM446.683429 64v896h130.633142V64h-130.633142zM381.44 0h261.193143v1024H381.44V0zM54.857143 512h261.229714v512H54.857143V512z m881.627428 480H740.571429v-768h195.913142v768zM773.229714 256v704h130.596572V256h-130.596572z m-65.316571-64H969.142857V1024h-261.229714V192z"
+    fill="#7B8796" opacity=".9" p-id="17194"></path>
+</svg>

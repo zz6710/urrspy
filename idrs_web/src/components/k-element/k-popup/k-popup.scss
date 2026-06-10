@@ -1,0 +1,18 @@
+//弹出框中图标样式
+.dialog-icon {
+    width: 45px;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: -40px;
+    background: linear-gradient(60deg, #66bb6a, #43a047);
+    border-radius: 3px;
+    float: left;
+    margin-right: 8px;
+    box-shadow: 0 12px 20px -10px rgba(76, 175, 80, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(76, 175, 80, 0.2);
+  }
+
+  .dialog-icon .md-icon{
+    color: #FFFFFF !important;
+  }
