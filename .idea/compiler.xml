@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="k-cloud-discovery-erueka" />
+        <module name="k-cloud-service-starter-micro-server" />
+        <module name="k-cloud-service-dps" />
+        <module name="k-cloud-service-base" />
+        <module name="k-cloud-config" />
+        <module name="k-cloud-discovery-nacos" />
+        <module name="k-cloud-cache" />
+        <module name="k-cloud-flowable" />
+        <module name="k-cloud-service-api" />
+        <module name="k-cloud-action" />
+        <module name="k-cloud-service-flowable" />
+        <module name="k-cloud-service-gateway" />
+        <module name="k-cloud-utils" />
+        <module name="k-cloud-service-rpt" />
+        <module name="k-cloud-gateway" />
+        <module name="k-cloud-core" />
+        <module name="k-cloud-xsql" />
+        <module name="k-cloud-discovery-erueka-server" />
+        <module name="k-cloud-gray" />
+        <module name="k-cloud-dao" />
+      </profile>
+    </annotationProcessing>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="k-cloud-action" options="-parameters" />
+      <module name="k-cloud-cache" options="-parameters" />
+      <module name="k-cloud-config" options="-parameters" />
+      <module name="k-cloud-core" options="-parameters" />
+      <module name="k-cloud-dao" options="-parameters" />
+      <module name="k-cloud-discovery-erueka" options="-parameters" />
+      <module name="k-cloud-discovery-erueka-server" options="-parameters" />
+      <module name="k-cloud-discovery-nacos" options="-parameters" />
+      <module name="k-cloud-gateway" options="-parameters" />
+      <module name="k-cloud-gray" options="-parameters" />
+      <module name="k-cloud-service-api" options="-parameters" />
+      <module name="k-cloud-service-base" options="-parameters" />
+      <module name="k-cloud-service-dps" options="-parameters" />
+      <module name="k-cloud-service-gateway" options="-parameters" />
+      <module name="k-cloud-service-rpt" options="-parameters" />
+      <module name="k-cloud-service-starter-micro-server" options="-parameters" />
+      <module name="k-cloud-utils" options="-parameters" />
+      <module name="k-cloud-xsql" options="-parameters" />
+    </option>
+  </component>
+</project>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/idrs_server/k-cloud-action/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/idrs_server/k-cloud-cache/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/idrs_server/k-cloud-config/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/idrs_server/k-cloud-core/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/idrs_server/k-cloud-dao/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/idrs_server/k-cloud-discovery/k-cloud-discovery-erueka-server/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/idrs_server/k-cloud-discovery/k-cloud-discovery-erueka/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/idrs_server/k-cloud-discovery/k-cloud-discovery-nacos/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/idrs_server/k-cloud-discovery/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/idrs_server/k-cloud-discovery/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/idrs_server/k-cloud-flowable/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/idrs_server/k-cloud-flowable/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/idrs_server/k-cloud-gateway/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/idrs_server/k-cloud-gray/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/idrs_server/k-cloud-service-starters/k-cloud-service-starter-micro-server/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/idrs_server/k-cloud-service-starters/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/idrs_server/k-cloud-service-starters/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/idrs_server/k-cloud-service/k-cloud-DataProcessApp/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/idrs_server/k-cloud-service/k-cloud-ReportApp/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/idrs_server/k-cloud-service/k-cloud-service-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/idrs_server/k-cloud-service/k-cloud-service-base/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/idrs_server/k-cloud-service/k-cloud-service-gateway/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/idrs_server/k-cloud-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/idrs_server/k-cloud-service/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/idrs_server/k-cloud-utils/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/idrs_server/k-cloud-xsql/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/idrs_server/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/idrs_server/src/main/resources" charset="UTF-8" />
+  </component>
+</project>
